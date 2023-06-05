@@ -69,6 +69,11 @@ def show_signup_form():
             return redirect(next_page)
     return render_template("signup_form.html", form=form, error=error)
 
+@app.route('/servicios_oculares', methods=['GET', 'POST'])
+def servicios_oculares():
+    return render_template("servicios_oculares.html")
+
+
 @app.route('/logout')
 def logout():
     logout_user()

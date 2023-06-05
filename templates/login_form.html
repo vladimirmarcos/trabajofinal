@@ -11,18 +11,18 @@
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
             </div>
-            <div>
+            <div class="container d-flex justify-content-center align-item-center">
                 {{ form.password.label }}
                 {{ form.password }}<br>
                 {% for error in form.password.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
             </div>
-            <div>{{ form.remember_me() }} {{ form.remember_me.label }}</div>
-            <div>
+            <div class="container d-flex justify-content-center align-item-center">{{ form.remember_me() }} {{ form.remember_me.label }}</div>
+            <div class="container d-flex justify-content-center align-item-center">
                 {{ form.submit() }}
             </div>
         </form>
     </div>
-    <div>¿No tienes cuenta? <a href="{{ url_for('show_signup_form') }}">Regístrate</a></div>
+    <div class="container d-flex justify-content-center align-item-center">¿No tienes cuenta? <a href="{{ url_for('show_signup_form') }}">Regístrate</a></div>
 {% endblock %}

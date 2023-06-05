@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if current_user.is_anonymous %}
+ {{url_for('login') }}
+{%else%} 
+<h1>estamos logeados</h1>
+{% endif %}
+{% endblock %}
