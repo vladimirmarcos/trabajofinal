@@ -4,7 +4,7 @@
     <div>
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
-            <div>
+            <div class="container d-flex justify-content-center align-item-center">
                 {{ form.email.label }}
                 {{ form.email }}<br>
                 {% for error in form.email.errors %}
