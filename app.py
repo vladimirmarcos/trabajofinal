@@ -1,28 +1,30 @@
 from flask import Flask,render_template,request,redirect,url_for
 import os
-from form import SignupForm,LoginForm
+from form import SignupForm,LoginForm,ImgForm
 from flask_login import LoginManager, logout_user, current_user, login_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
+from werkzeug.utils import secure_filename
+from flask_wtf import CSRFProtect
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'medico.db')
+app.config["UPLOAD_FOLDER"]="static/uploads"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 login_manager = LoginManager(app)
+csrf=CSRFProtect(app)
 login_manager.login_view = "login"
 db = SQLAlchemy(app)
 
 from models import User
-
+from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 
 @app.route('/')
 def index():
     return render_template("index.html")
-
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -71,8 +73,21 @@ def show_signup_form():
 
 @app.route('/servicios_oculares', methods=['GET', 'POST'])
 def servicios_oculares():
-    return render_template("servicios_oculares.html")
-
+    flag=0
+    if current_user.is_authenticated:
+        form=ImgForm(request.form)
+        if form.validate_on_submit():
+            file=request.files["image"]
+            filename= secure_filename(file.filename)
+            if file and allowed_file(filename):
+                file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
+                img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
+                predictions_raw=red(img_modelo)
+                return render_template ('mostrar_usuarios.html',mensaje1=predictions_raw[0,0],mensaje2=predictions_raw[0,1],mensaje3=predictions_raw[0,2])
+        return render_template("servicios_oculares.html",flag=0,form=form)
+    else: 
+         
+         return render_template("servicios_oculares.html",flag=1)
 
 @app.route('/logout')
 def logout():
@@ -80,7 +95,9 @@ def logout():
     return redirect(url_for('index'))
 
 
-
+if __name__=="__main__":
+    
+    app.run(debug=True)
 
 
  

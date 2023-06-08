@@ -2,9 +2,20 @@
 
 {% block content %}
 
-{% if current_user.is_anonymous %}
- {{url_for('login') }}
+{% if flag==1 %}
+   <h1>Debes logearte para ingresar al servicio</h1>
 {%else%} 
-<h1>estamos logeados</h1>
+<form  class='row' method='POST' enctype="multipart/form-data">
+       
+    {{form.csrf_token}}
+    <div class="container d-flex justify-content-center align-item-center">
+    {{form.image}}
+     </div>
+    <br>
+    <br>
+    <div class="container d-flex justify-content-center align-item-center">
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
 {% endif %}
 {% endblock %}
