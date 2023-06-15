@@ -74,6 +74,7 @@ def show_signup_form():
 @app.route('/servicios_oculares', methods=['GET', 'POST'])
 def servicios_oculares():
     flag=0
+    #comentario para mandar commit con todo funcionando
     if current_user.is_authenticated:
         form=ImgForm(request.form)
         if form.validate_on_submit():
