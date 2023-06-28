@@ -31,7 +31,7 @@ def get_labeled_data(img_entrada):
     Y=[]
     img = cv2.imread(img_entrada)
     for image in img_entrada:  
-        print("entre al for") 
+       
         if 'NORMAL' in image:
           if i<100:
             X.append(255-img)
@@ -39,27 +39,26 @@ def get_labeled_data(img_entrada):
     
         if 'MH' in image:
           art=1
-            # Y.append([0,1,0,0])
+           
            
           X.append(img-255)
     
         if 'DR' in image:
-            # Y.append([0,0,1,0])#orig
+            
             Y.append([0,1,0])
 
             X.append(255-img)
     
         if 'CSR8' in image:
-             print("entre al if")
+             
              Y.append([0,0,1])
-             print(Y)
+            
              X.append(255-img)
-             print(X)
+          
     
     X.append(255-img)
     Y.append([0,0,1])
-    print(Y)
-    print(X)    
+      
     return X,Y
 def red(nombre_archivo):
             x_ex_temp,y_ex_temp=get_labeled_data(nombre_archivo)

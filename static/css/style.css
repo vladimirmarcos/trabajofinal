@@ -4,6 +4,10 @@
     padding: 2rem;
     background-color: #f5f6f7;
 }
+.navbar img {
+    max-width: 50px;
+    max-width: 50px;
+}
 
 .navbar-collapse{
     align-items: center;
@@ -23,7 +27,25 @@ h1 {
     font-family: 'Open Sans', sans-serif;
 
 }
+.seccion-oscura{
+    background-color: #1b1b32;
+    color: white;
+}
+.seccion-clara{
+    color: black;
+    background-color: white;
 
+}
+.seccion-descripcion{
+    font-size: 1.2rem;
+    color: #584e4e;
+}
+.texto-negro{
+    color: black;
+}
+.texto-blanco{
+    color: white;
+}
 .hero-principal{
 
     padding: 3rem;
@@ -33,6 +55,16 @@ h1 {
     height: 200px;
     border-radius: 50%;
     margin: 20px;
+}
+
+.seccion-titulo{
+    font-size: 2rem;
+    padding: 15px 0;
+    font-family: 'Open Sans', sans-serif
+
+}
+.seccion-texto{
+    font-size: 1.2rem;
 }
 /*Hero seccion*/
 
@@ -48,14 +80,146 @@ h1 {
     color: #615151;
 }
 
+.preguntas-frecuentes{
+    height: 800px;
+}
+
+/*noticias*/
+.noticias{
+    height: 500px;
+    padding: 10px;
+}
+.noticias .contenedor{
+    max-width: 600px;
+    text-align: center;
+
+}
+
+
+/*experiencia*/
+.experiencia{
+    padding: 40px;
+}
+
+.experiencia .columna {
+    padding: 20px;
+    border: 2px solid #8080804d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: all 0.2s ease-in;
+}
+.experiencia .columna:hover{
+    color: white;
+    background-color: #1b1b32;
+}
+.experiencia-titulo{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.experiencia img {
+    max-width: 200px;
+    max-height: 200px;
+}
+.experiencia SMI {
+    max-height: 100px;
+}
+/*Fin experiencia*/
+/*proyecto*/
+.proyectos-recientes{
+    padding: 40px;
+}
+
+/*fin proyecto*/
+
+/*testimonios*/
+.ultimas-noticias{
+    padding: 40px 40px 80px 40px;
+}
+.ultimas-noticias .carousel{
+    max-width: 800px;
+}
+
+/*fin testimonios*/
+.preguntas-frecuentes .container .row .columna i{
+    object-fit: contain;
+}
+/*contacto*/
+
+.contacto .contenedor{
+    max-width: 1100px;
+    min-height: 200px ;
+    padding: 20px;
+}
+
+.talleres-afiliados .card img{
+	
+	max-height:400px;
+}
+.servicios-afiliados .card img{
+	
+	max-height: 500px;
+    max-width: auto;
+}
+
+.talleres-afiliados .card {
+    max-width: 1000px;
+    
+}
+
+/*comercios adheridos
+.experiencia .seccion-clara .preguntas-frecuentes .container .row img {
+
+    max-width: 200px;
+    max-height: 200px;
+}
 
 
 
+/*fin comercios adheridos*/
+.contacto .row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.contacto .descripcion{
+    color: white;
+    font-size: 1.2rem;
+}
+.contacto button{
 
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 1.25em 2em;
+    margin: 10px;
+    border-radius: 100px;
+    transition: all 0.2s ease-in-out;
+}
+.contacto button:hover{
+    background-color: white;
+    color: black;
+}
+.contacto button:hover i{
 
+    color: black;
+
+}
+.contacto button i{
+    color: white;
+    font-size: 1.3rem;
+    transition: all 0.2s ease-in-out;
+}
+/*fin contacto*/
 /* responsivo*/
 @media screen and (max-width: 767px){
     .navbar-brand{
         display: none;
     }
+   
+
 }
+
