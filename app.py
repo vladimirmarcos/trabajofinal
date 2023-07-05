@@ -22,7 +22,7 @@ from models import User
 from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     return render_template("index.html")
 

@@ -73,7 +73,6 @@ def red(nombre_archivo):
             weights_path=os.path.join(app.config["WEIGHT_FOLDER"],weight)
             cnn.load_weights(weights_path)
             cnn.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
-            cnn.summary()
             i=random.randint(0, (len(X_extrap)-1))
             imagen_a_pred=X_extrap[i]
             A=imagen_a_pred[np.newaxis,:, : ]
@@ -82,8 +81,6 @@ def red(nombre_archivo):
             y_pred = predictions; 
             y_true=Y_extrap[i] 
             y_true=np.argmax(y_true, axis=0)
-           # print("El label real es:    ",labels[y_true])
-            #print("El label predicho es:",labels[y_pred[0]])
             predictions=np.argmax(predictions_raw, axis=1)  #transformo las predicciones en enteros
             y_pred = predictions; 
             y_true=Y_extrap[i] #valor real
