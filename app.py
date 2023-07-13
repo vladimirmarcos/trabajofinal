@@ -51,16 +51,20 @@ def show_signup_form():
         return redirect(url_for('index'))
     form = SignupForm()
     error = None
+    print("entramos a la ruta")
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         password = form.password.data
+        usuario_profesion=form.usuario_profesion.data
+        print("aca llega lo que enviamos")
         user = User.get_by_email(email)
         if user is not None:
             error = f'El email {email} ya está siendo utilizado por otro usuario'
         else:
             # Creamos el usuario y lo guardamos
-            user = User(name=name, email=email)
+            print ("entramos al else")
+            user = User(name=name, email=email,usuario_profesion=usuario_profesion)
             user.set_password(password)
             user.save()
             # Dejamos al usuario logueado
@@ -84,6 +88,7 @@ def servicios_oculares():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
                 predictions_raw=red(img_modelo)
+                
                 return render_template ('mostrar_usuarios.html',mensaje1=predictions_raw[0,0],mensaje2=predictions_raw[0,1],mensaje3=predictions_raw[0,2])
         return render_template("servicios_oculares.html",flag=0,form=form)
     else: 
