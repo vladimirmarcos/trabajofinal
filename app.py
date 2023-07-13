@@ -18,7 +18,7 @@ csrf=CSRFProtect(app)
 login_manager.login_view = "login"
 db = SQLAlchemy(app)
 
-from models import User
+from models import User,Diagnostico
 from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 
@@ -88,7 +88,12 @@ def servicios_oculares():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
                 predictions_raw=red(img_modelo)
-                
+                #print (predictions_raw)
+                #sano=predictions_raw[0,0]
+                #dr=predictions_raw[0,1]
+                #csr=predictions_raw[0,2]
+                #caso=Diagnostico(img_modelo,"sadas",predictions_raw[0,0],predictions_raw[0,1],predictions_raw[0,2])
+                #caso.save()
                 return render_template ('mostrar_usuarios.html',mensaje1=predictions_raw[0,0],mensaje2=predictions_raw[0,1],mensaje3=predictions_raw[0,2])
         return render_template("servicios_oculares.html",flag=0,form=form)
     else: 
