@@ -21,3 +21,4 @@ class ImgForm (FlaskForm):
       image =FileField('image')
 
 
+
