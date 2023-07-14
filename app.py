@@ -88,13 +88,15 @@ def servicios_oculares():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
                 predictions_raw=red(img_modelo)
-                #print (predictions_raw)
-                #sano=predictions_raw[0,0]
-                #dr=predictions_raw[0,1]
-                #csr=predictions_raw[0,2]
-                #caso=Diagnostico(img_modelo,"sadas",predictions_raw[0,0],predictions_raw[0,1],predictions_raw[0,2])
-                #caso.save()
-                return render_template ('mostrar_usuarios.html',mensaje1=predictions_raw[0,0],mensaje2=predictions_raw[0,1],mensaje3=predictions_raw[0,2])
+                algo=list(predictions_raw[0][0])
+                
+                s=algo[0]
+                dr=algo[1]
+                scr=algo[2]
+             
+                caso=Diagnostico(imagenes_archivos=img_modelo,imagenes_fecha_tomada="sadas",ojo_sano=s,dr=dr,crs=scr)
+                caso.save()
+                return render_template ('mostrar_usuarios.html',mensaje1=s,mensaje2=dr,mensaje3=scr)
         return render_template("servicios_oculares.html",flag=0,form=form)
     else: 
          

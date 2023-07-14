@@ -38,6 +38,6 @@ class Diagnostico (db.Model, UserMixin):
         def __repr__(self):
          return f'<diagnostico {self.imagenes_fecha_tomada}>' 
         def save(self):
-            if not self.id:
+            if not self.id_imagenes:
                 db.session.add(self)
             db.session.commit()
