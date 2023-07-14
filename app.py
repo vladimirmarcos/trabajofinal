@@ -6,6 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
 from werkzeug.utils import secure_filename
 from flask_wtf import CSRFProtect
+import matplotlib.pyplot as plt
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 
@@ -78,6 +79,9 @@ def show_signup_form():
 @app.route('/servicios_oculares', methods=['GET', 'POST'])
 def servicios_oculares():
     flag=0
+    arreglo=['sano','dr','scr']
+    colores = ["#EE6055","#60D394","#AAF683"]
+    arreglo_resultados=[]
     #comentario para mandar commit con todo funcionando
     if current_user.is_authenticated:
         form=ImgForm(request.form)
@@ -93,11 +97,17 @@ def servicios_oculares():
                 s=algo[0]
                 dr=algo[1]
                 scr=algo[2]
-             
+                arreglo_resultados.append(s)
+                arreglo_resultados.append(dr)
+                arreglo_resultados.append(scr)
+
+               
                 caso=Diagnostico(imagenes_archivos=img_modelo,imagenes_fecha_tomada="sadas",ojo_sano=s,dr=dr,crs=scr)
                 caso.save()
-                return render_template ('mostrar_usuarios.html',mensaje1=s,mensaje2=dr,mensaje3=scr)
-        return render_template("servicios_oculares.html",flag=0,form=form)
+                plt.pie(arreglo_resultados, labels=arreglo,colors=colores)
+                plt.savefig("static/graficos/Ejemplo.jpg")
+                return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr)
+        return render_template("servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="")
     else: 
          
          return render_template("servicios_oculares.html",flag=1)
