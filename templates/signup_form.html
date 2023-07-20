@@ -5,6 +5,7 @@
 {% block title %}Registro de usuarios{% endblock %}
 
 {% block content %}
+<div class="registro">
     {% if error %}
         <p style="color: red;"><strong>Error:</strong> {{ error }}
     {% endif %}
@@ -34,13 +35,15 @@
         <div class="form-group">
             {{ form.usuario_profesion.label }}
             {{ form.usuario_profesion(class_="form-control") }}<br>
+            <div class="container d-flex justify-content-center align-item-center">
+                {{ form.submit() }}
+            </div>
             
         </div>
 
 
 
-        <div class="container d-flex justify-content-center align-item-center">
-            {{ form.submit() }}
-        </div>
+        
     </form>
+</div>
 {% endblock %}

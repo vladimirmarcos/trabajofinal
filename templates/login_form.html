@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
-    <div>
+    <div class="login">
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
         
@@ -27,6 +27,7 @@
                 {{ form.submit(class_="btn btn-primary") }}
             </div>
         </form>
+        <div class="container d-flex justify-content-center align-item-center">¿No tienes cuenta? <a href="{{ url_for('show_signup_form') }}">Regístrate</a></div>
     </div>
-    <div class="container d-flex justify-content-center align-item-center">¿No tienes cuenta? <a href="{{ url_for('show_signup_form') }}">Regístrate</a></div>
+    
 {% endblock %}
