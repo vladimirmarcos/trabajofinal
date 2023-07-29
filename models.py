@@ -41,3 +41,21 @@ class Diagnostico (db.Model, UserMixin):
             if not self.id_imagenes:
                 db.session.add(self)
             db.session.commit()
+
+class Paciente (db.Model,UserMixin):
+      __tablename__ = 'paciente'
+      id_paciente = db.Column(db.Integer, primary_key=True)
+      nombre = db.Column(db.String(256), nullable=False)
+      dni= db.Column(db.Integer, unique=True ,nullable=False)
+      edad= db.Column(db.Integer, nullable=False)
+      altura = db.Column(db.Float, nullable=False)
+      def __repr__(self):
+         return f'<paciente {self.dni}>'
+      def save(self):
+            if not self.id_paciente:
+             db.session.add(self)
+            db.session.commit()
+      @staticmethod
+      def get_by_dni(dni):
+        return Paciente.query.filter_by(dni=dni).first()  
+     

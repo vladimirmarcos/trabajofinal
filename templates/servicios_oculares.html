@@ -16,16 +16,20 @@
     <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </form>
+
+
+  {% if mensaje1 != ''%}
+  <h1>el paciente tiene: </h1> <br>
+  <h2>ojo sano: </h2>
+  <h2>{{mensaje1}}</h2>
+  <h2>DR: </h2>
+  <h2>{{mensaje2}}</h2>
+  <h2>CSR: </h2>
+  <h2>{{mensaje3}}</h2>
+  <img src="{{ url_for('static', filename='name') }}" >
+  {%else%} 
+  {% endif %} 
 {% endif %}
 
-{% if mensaje1 != ''%}
-<h1>el paciente tiene: </h1> <br>
-<h2>ojo sano: </h2>
-<h2>{{mensaje1}}</h2>
-<h2>DR: </h2>
-<h2>{{mensaje2}}</h2>
-<h2>CSR: </h2>
-<h2>{{mensaje3}}</h2>
-<img src="{{ url_for('static', filename='graficos/Ejemplo.jpg') }}" >
-{% endif %}
+
 {% endblock %}

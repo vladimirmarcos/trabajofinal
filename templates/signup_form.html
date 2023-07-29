@@ -12,31 +12,42 @@
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <div class="form-group">
-            {{ form.name.label }}
-            {{ form.name(class_="form-control") }}<br>
+          <div class="container d-flex justify-content-center align-item-center"> 
+            {{ form.name(class_="form-control-md",placeholder='Nombre') }}<br>
             {% for error in form.name.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
+        </div>
         <div class="form-group">
-            {{ form.email.label }}
-            {{ form.email(class_="form-control") }}<br>
+          <div class="container d-flex justify-content-center align-item-center"> 
+            {{ form.email(class_="form-control-md",placeholder='Correo') }}<br>
             {% for error in form.email.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
+        </div> 
         </div>
         <div class="form-group">
-            {{ form.password.label }}
-            {{ form.password(class_="form-control") }}<br>
+        <div class="container d-flex justify-content-center align-item-center">
+            {{ form.password(class_="form-control-md",placeholder='Contraseña') }}<br>
             {% for error in form.password.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
         </div>
+        </div>
         <div class="form-group">
-            {{ form.usuario_profesion.label }}
-            {{ form.usuario_profesion(class_="form-control") }}<br>
             <div class="container d-flex justify-content-center align-item-center">
-                {{ form.submit() }}
+                <div class="row">
+                <div class="col-12">
+            {{ form.usuario_profesion.label }} 
+        </div>
+            
+            {{ form.usuario_profesion(class_="form-control-md") }}<br>
+        </div>
+        </div>
+            <div class="container d-flex justify-content-center align-item-center">
+               
+               <br> {{ form.submit() }}
             </div>
             
         </div>

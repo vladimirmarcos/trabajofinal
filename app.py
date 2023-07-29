@@ -1,6 +1,7 @@
 from flask import Flask,render_template,request,redirect,url_for
 import os
-from form import SignupForm,LoginForm,ImgForm
+import random
+from form import SignupForm,LoginForm,ImgForm,PacienteForm
 from flask_login import LoginManager, logout_user, current_user, login_user, login_required
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.urls import url_parse
@@ -9,7 +10,7 @@ from flask_wtf import CSRFProtect
 import matplotlib.pyplot as plt
 basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
-
+global_numero=0
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'medico.db')
 app.config["UPLOAD_FOLDER"]="static/uploads"
@@ -19,7 +20,7 @@ csrf=CSRFProtect(app)
 login_manager.login_view = "login"
 db = SQLAlchemy(app)
 
-from models import User,Diagnostico
+from models import User,Diagnostico,Paciente
 from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 
@@ -52,19 +53,17 @@ def show_signup_form():
         return redirect(url_for('index'))
     form = SignupForm()
     error = None
-    print("entramos a la ruta")
     if form.validate_on_submit():
         name = form.name.data
         email = form.email.data
         password = form.password.data
         usuario_profesion=form.usuario_profesion.data
-        print("aca llega lo que enviamos")
         user = User.get_by_email(email)
         if user is not None:
             error = f'El email {email} ya está siendo utilizado por otro usuario'
         else:
             # Creamos el usuario y lo guardamos
-            print ("entramos al else")
+            
             user = User(name=name, email=email,usuario_profesion=usuario_profesion)
             user.set_password(password)
             user.save()
@@ -78,12 +77,14 @@ def show_signup_form():
 
 @app.route('/servicios_oculares', methods=['GET', 'POST'])
 def servicios_oculares():
-    flag=0
+    flag=1
+    mensaje1=""
     arreglo=['sano','dr','scr']
     colores = ["#EE6055","#60D394","#AAF683"]
     arreglo_resultados=[]
     #comentario para mandar commit con todo funcionando
     if current_user.is_authenticated:
+        flag=0
         form=ImgForm(request.form)
         if form.validate_on_submit():
             file=request.files["image"]
@@ -100,17 +101,53 @@ def servicios_oculares():
                 arreglo_resultados.append(s)
                 arreglo_resultados.append(dr)
                 arreglo_resultados.append(scr)
-
+                numero=random.randrange(1, 1000, 2)
                
                 caso=Diagnostico(imagenes_archivos=img_modelo,imagenes_fecha_tomada="sadas",ojo_sano=s,dr=dr,crs=scr)
                 caso.save()
                 plt.pie(arreglo_resultados, labels=arreglo,colors=colores)
-                plt.savefig("static/graficos/Ejemplo.jpg")
-                return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr)
+                
+                name ="static/graficos/Ejemplo"+str(numero)+ ".jpg"
+                
+                #plt.savefig(name)
+                name="graficos/Ejemplo"+str(numero)+ ".jpg"
+                return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr,name=name)
         return render_template("servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="")
     else: 
          
          return render_template("servicios_oculares.html",flag=1)
+
+
+
+@app.route('/paciente', methods=['GET', 'POST'])
+def servicios_paciente():
+    error=None
+
+    if current_user.is_authenticated :
+        form=PacienteForm(request.form)
+        if form.validate_on_submit():
+            nombre = form.name.data
+            age = form.edad.data
+            h= form.altura.data
+            dni=form.dni.data
+            pas =  Paciente.get_by_dni(dni)
+            if pas is not None:
+                error = f'El paciente con {dni} ya esta registrado'
+                
+            else:
+            # Creamos el usuario y lo guardamos
+                paciente=Paciente(nombre=nombre,edad=age,dni=dni,altura=h)
+                paciente.save()
+                os.chdir("static/uploads")
+                os.makedirs(nombre)
+                os.chdir("../../")
+                error = f'El paciente con {dni} se registro con exito.'
+                return render_template ('paciente.html',form=form,error=error)
+            
+         
+    return render_template("paciente.html",form=form,error=error)
+
+
 
 @app.route('/logout')
 def logout():
