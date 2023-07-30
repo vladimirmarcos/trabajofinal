@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+{% if error %}
+<p style="color: red;"><strong>Error:</strong> {{ error }}
+{% endif %}
+<div class="login">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+    
+       
+        <div class="form-group">
+            
+            <div class="container d-flex justify-content-center align-item-center">
+            {{ form.dni(class_="form-control-md",placeholder='dni')}}  <br>
+            {% for error in form.dni.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+       
+    </form>
+</div> 
+    <div>
+{%if dni %}
+<h1>El paciente de nombre {{fisico.nombre}}, tiene {{fisico.edad}} años, una altura de {{fisico.altura}} cm, con un peso de {{fisico.peso}} kg y sus antecednetes son {{fisico.antecedente}}</h1>
+{% for diagnostico in diagnosticos %}
+<h1>el paciente en el diagnostico número {{ loop.index }} presento: </h1> <br>
+  <h2>ojo sano: </h2>
+  <h2>{{diagnostico.ojo_sano}}</h2>
+  <h2>DR: </h2>
+  <h2>{{diagnostico.dr}}</h2>
+  <h2>CSR: </h2>
+  <h2>{{diagnostico.crs}}</h2>
+ <img src="{{ url_for('static', filename='{imagenes[loop.index].direccion}') }}" alt="imagen diagnostico">
+{% endfor %}
+</div>
+{% endif %}
+
+
+
+
+        
+
+{% endblock %}

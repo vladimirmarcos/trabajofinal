@@ -145,6 +145,10 @@ h1 {
     min-height: 100vh;
     min-width: 100vh;
 }
+.servicios-oculares{
+    min-height: 100vh;
+    min-width: 100vh;
+}
 .preguntas-frecuentes .container .row .columna i{
     object-fit: contain;
 }

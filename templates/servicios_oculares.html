@@ -1,16 +1,24 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+<div class="servicios-oculares">
+  
 {% if flag==1 %}
    <h1>Debes logearte para ingresar al servicio</h1>
 {%else%} 
+
+{% if error %}
+<p style="color: red;"><strong>Error:</strong> {{ error }}
+{% endif %}
 <form  class='row' method='POST' enctype="multipart/form-data">
    
     {{form.csrf_token}}
     <div class="container d-flex justify-content-center align-item-center">
-    {{form.image}}
+    {{form.image (class_="form-control-md")}}
      </div>
+     <div class="container d-flex justify-content-center align-item-center">
+      {{form.dni(class_="form-control-md",placeholder='dni')}}
+       </div>
     
     <div class="container d-flex justify-content-center align-item-center">
     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -31,5 +39,5 @@
   {% endif %} 
 {% endif %}
 
-
+</div>
 {% endblock %}
