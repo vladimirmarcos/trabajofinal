@@ -7,72 +7,76 @@
 
 
 
-<div>
+<div >
     {% if error %}
     <p style="color: red;"><strong>Error:</strong> {{ error }}
     {% endif %}
-    <div class="login">
+    <div class="paciente">
         <form action="" method="post" novalidate>
             {{ form.hidden_tag() }}
         
             <div class="form-group">
                 <div class="container d-flex justify-content-center align-item-center"> 
-                {{ form.name(class_="form-control-md",placeholder='Nombre') }}<br>
+                {{ form.name(class_="form-control",placeholder='Nombre') }}<br>
                 {% for error in form.name.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                </div>
             </div>
-            </div>
+            <br>
             <div class="form-group">
-                
                 <div class="container d-flex justify-content-center align-item-center">
-                {{ form.dni(class_="form-control-md",placeholder='dni')}}  <br>
+                {{ form.dni(class_="form-control",placeholder='dni')}}  <br>
                 {% for error in form.edad.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                </div>
             </div>
-            </div>
+
+            <br>
+
             <div class="form-group">
-                
                 <div class="container d-flex justify-content-center align-item-center">
-                {{ form.edad(class_="form-control-md",placeholder='Edad')}}  <br>
+                {{ form.edad(class_="form-control",placeholder='Edad')}}  <br>
                 {% for error in form.edad.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                </div>
             </div>
-            </div>
+
+            <br>
             <div class="form-group">
                 <div class="container d-flex justify-content-center align-item-center"> 
-                {{ form.altura (class_="form-control-md",placeholder='altura') }}<br>
+                {{ form.altura (class_="form-control",placeholder='altura') }}<br>
                 {% for error in form.altura.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                </div>
             </div>
-
+            <br>
             <div class="form-group">
                 <div class="container d-flex justify-content-center align-item-center"> 
-                {{ form.peso (class_="form-control-md",placeholder='peso') }}<br>
+                {{ form.peso (class_="form-control",placeholder='peso') }}<br>
                 {% for error in form.peso.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                </div>
             </div>
-
+            <br>
             <div class="form-group">
                 <div class="container d-flex justify-content-center align-item-center"> 
-                {{ form.antecedente (class_="form-control-md",placeholder='antecedentes') }}<br>
+                {{ form.antecedente (class_="form-control",placeholder='antecedentes') }}<br>
                 {% for error in form.antecedente.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
+                 </div>
             </div>
-
-
-
-            </div>
-           
+           <br>
             <div class="container d-flex justify-content-center align-item-center">
                 {{ form.submit(class_="btn btn-primary") }}
             </div>
         </form>
+        </div>
        
 </div>
         

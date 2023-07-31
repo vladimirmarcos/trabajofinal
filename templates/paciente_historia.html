@@ -18,8 +18,8 @@
             {% for error in form.dni.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
+            </div>
         </div>
-       
     </form>
 </div> 
     <div>
@@ -33,7 +33,7 @@
   <h2>{{diagnostico.dr}}</h2>
   <h2>CSR: </h2>
   <h2>{{diagnostico.crs}}</h2>
- <img src="{{ url_for('static', filename='{imagenes[loop.index].direccion}') }}" alt="imagen diagnostico">
+ <img src="{{ url_for('static', filename='name') }}" alt="imagen diagnostico">
 {% endfor %}
 </div>
 {% endif %}

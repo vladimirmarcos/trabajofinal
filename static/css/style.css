@@ -149,12 +149,17 @@ h1 {
     min-height: 100vh;
     min-width: 100vh;
 }
+.paciente{
+    min-height: 100vh;
+    min-width: 100vh;
+}
 .preguntas-frecuentes .container .row .columna i{
     object-fit: contain;
 }
 
 .login{
     min-height: 100vh;
+    min-width: 100vh;
 }
 
 .registro{

@@ -12,7 +12,7 @@ app = Flask(__name__)
 global_numero=0
 app.config['SECRET_KEY'] = '7110c8ae51a4b5af97be6534caef90e4bb9bdcb3380af008f90b23a5d1616bf319bc298105da20fe'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///'+os.path.join(basedir, 'medico.db')
-app.config["UPLOAD_FOLDER"]="static/uploads"
+app.config["UPLOAD_FOLDER"]="static"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 login_manager = LoginManager(app)
 csrf=CSRFProtect(app)
@@ -91,7 +91,7 @@ def servicios_oculares():
                 id_paciente=paciente.id_paciente
                 fisico=Fisico.get_by_id_paciente(id_paciente)
                 nombre=fisico.nombre
-                filename=nombre+"/"+filename
+                filename="uploads/"+nombre+"/"+filename
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
                 predictions_raw=red(img_modelo)
@@ -101,7 +101,7 @@ def servicios_oculares():
                 scr=algo[2]
                 caso=Diagnostico(id_paciente=id_paciente,ojo_sano=s,dr=dr,crs=scr)
                 caso.save()
-                imagen=Imagenes(direccion=img_modelo,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
+                imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
                 imagen.save()
                 return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr)
             else: 
@@ -152,7 +152,7 @@ def servicios_paciente():
 def servicios_paciente_historia():
     error=None
     dni=None
-    
+    form=Informacion(request.form)
     fisico=None
     if current_user.is_authenticated :
         form=Informacion(request.form)
@@ -170,11 +170,8 @@ def servicios_paciente_historia():
                 fisico=Fisico.get_by_id_paciente(id_paciente)
                 diagnosticos=Diagnostico.get_by_ide(id_paciente)
                 imagenes=Imagenes.get_by_ide(id_paciente)
-                
-                
-                
-                
-                return render_template ('paciente_historia.html',form=form,error=error,dni=dni,fisico=fisico,diagnosticos=diagnosticos,imagenes=imagenes)
+                name=imagenes[0].direccion
+                return render_template ('paciente_historia.html',form=form,error=error,dni=dni,fisico=fisico,diagnosticos=diagnosticos,imagenes=imagenes,name=name)
             
          
     return render_template("paciente_historia.html",form=form,error=error,dni=dni,fisico=fisico)

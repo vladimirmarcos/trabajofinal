@@ -10,7 +10,7 @@
             <div class="form-group">
                 
                 <div class="container d-flex justify-content-center align-item-center">
-                {{ form.email(class_="form-control-md",placeholder='Email de usuario')}}  <br>
+                {{ form.email(class_="form-control",placeholder='Email de usuario')}}  <br>
                 {% for error in form.email.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
@@ -18,7 +18,7 @@
             </div>
             <div class="form-group">
                 <div class="container d-flex justify-content-center align-item-center"> 
-                {{ form.password (class_="form-control-md",placeholder='Contraseña') }}<br>
+                {{ form.password (class_="form-control",placeholder='Contraseña') }}<br>
                 {% for error in form.password.errors %}
                 <span style="color: red;">{{ error }}</span>
                 {% endfor %}
