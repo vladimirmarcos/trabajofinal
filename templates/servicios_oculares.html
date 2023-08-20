@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 
 {% block content %}
 <div class="servicios-oculares">
@@ -8,7 +8,14 @@
 {%else%} 
 
 {% if error %}
-<p style="color: red;"><strong>Error:</strong> {{ error }}
+<div class="container-fluid">
+    <div class="alert alert-danger alert-dismissible">
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+        {{ error }}
+ <a class="alert-link" href="{{ url_for('servicios_paciente') }}"">Presione aquí para registrarlo</a>
+
+</div>
+</div>
 {% endif %}
 <form  class='row' method='POST' enctype="multipart/form-data">
    
@@ -27,15 +34,40 @@
 
 
   {% if mensaje1 != ''%}
-  <h1>el paciente tiene: </h1> <br>
-  <h2>ojo sano: </h2>
-  <h2>{{mensaje1}}</h2>
-  <h2>DR: </h2>
-  <h2>{{mensaje2}}</h2>
-  <h2>CSR: </h2>
-  <h2>{{mensaje3}}</h2>
-  <img src="{{ url_for('static', filename='name') }}" >
-  {%else%} 
+
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ojo Sano</th>
+                        <th> DR</th>
+                        <th>CSR</th>
+            
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>{{mensaje1}}</td>
+                        <td>{{mensaje2}}</td>
+                        <td>{{mensaje3}}</td>
+                    </tr>
+                </tbody>
+            
+              
+            
+            </thead>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+  
+  <img src="{{name}}" >
+
+  
   {% endif %} 
 {% endif %}
 
