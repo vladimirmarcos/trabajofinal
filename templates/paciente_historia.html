@@ -1,0 +1,76 @@
+{% extends "base_2.html" %}
+
+
+{% block content %}
+
+{% if error %}
+<div class="container-fluid">
+    <div class="alert alert-danger alert-dismissible">
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+        {{ error }}
+ <a class="alert-link" href="{{ url_for('servicios_paciente') }}"">Presione aquí para registrarlo</a>
+
+</div>
+</div>
+{% endif %}
+<div class="historial-dni">
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}     
+        <div class="form-group">
+            
+            <div class="container d-flex justify-content-center align-item-center">
+            {{ form.dni(class_="form-control-md",placeholder='dni')}}  <br>
+            {% for error in form.dni.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+            </div>
+        </div>
+    </form>
+</div> 
+
+
+<div class="historial">
+{%if dni and not(error) %}
+<h1 >El paciente de nombre {{fisico.nombre}}, tiene {{fisico.edad}} años, una altura de {{fisico.altura}} cm, con un peso de {{fisico.peso}} kg y sus antecednetes son {{fisico.antecedente}}</h1>
+{% for item in lista %}
+<h1>el paciente en el diagnostico número {{ loop.index }} presento </h1> <br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ojo Sano</th>
+                        <th> DR</th>
+                        <th>CSR</th>
+            
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>{{lista.0[0]}}</td>
+                        <td>{{lista.2[2]}}</td>
+                        <td>{{lista.1[1]}}</td>
+                    </tr>
+                </tbody>
+            
+              
+            
+            </thead>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+  <div class="container text-center">
+    <h2>La imagen del diagnostico es </h2>
+  <img src="{{lista.3[3]}}" class="img-fluid">
+
+
+</div>
+
+{% endfor %}
+{% endif %}
+</div>
+{% endblock %}

@@ -85,4 +85,4 @@ def red(nombre_archivo):
             y_pred = predictions; 
             y_true=Y_extrap[i] #valor real
             y_true=np.argmax(y_true, axis=0)
-            return predictions_raw
+            return predictions_raw,

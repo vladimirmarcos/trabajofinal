@@ -18,10 +18,13 @@
       <!-- poner imagen 2 horas 29 minutos-->
       <ul class="navbar-nav d-flex justify-content-center align-item-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#galeria">Nosotros</a>
+          <a class="nav-link" href="#galeria">Noticias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#carouselExampleDark">Nosotros</a>
         </li>
 
         <li class="nav-item dropdown">
@@ -30,24 +33,25 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ url_for('servicios_oculares') }}">Servicios oculares</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+           
           </ul>
         </li>
         
+        
         <li class="nav-item">
-          <a class="nav-link" href="#FAQ">Preguntas Frecuentes</a>
+          <a class="nav-link" href="#flush-headingOne">Preguntas Frecuentes</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#contacto">Contacto</a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('login') }}">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"  href="{{ url_for('show_signup_form') }}"">Registrar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contacto">Contacto</a>
-        </li>
+        
       </ul>
 
 
@@ -70,10 +74,15 @@
         <!-- poner imagen 2 horas 29 minutos-->
         <ul class="navbar-nav d-flex justify-content-center align-item-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Inicio</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#galeria">Nosotros</a>
+            <a class="nav-link" href="#galeria">Noticias</a>
+          </li>
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="#carouselExampleDark">Nosotros</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,17 +90,28 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{{ url_for('servicios_oculares') }}">Servicios Oculares</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              
+             
             </ul>
           </li>
-        
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Paciente
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="{{ url_for('servicios_paciente') }}">Cargar Paciente</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('servicios_paciente_historia') }}">Historial Paciente</a></li>
+              <li><hr class="dropdown-divider"></li>
+              
+            </ul>
+          </li>
           <li class="nav-item">
-            <a class="nav-link href="#FAQ">Preguntas Frecuentes</a>
+            <a class="nav-link href="#flush-headingOne">Preguntas Frecuentes</a>
            
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="#contacto">Contacto</a>
+          </li>
 
           <li class="nav-item" >{{ current_user.name }} </li>
 
@@ -99,9 +119,7 @@
             <a class="nav-link" href="{{ url_for('logout') }}"">Salir</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#contacto">Contacto</a>
-          </li>
+         
         </ul>
         
       </div>
