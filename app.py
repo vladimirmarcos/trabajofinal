@@ -20,7 +20,7 @@ login_manager.login_view = "login"
 db = SQLAlchemy(app)
 
 from models import User,Diagnostico,Paciente,Fisico,Imagenes
-from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
+from funciones_varias import allowed_file,red
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -99,7 +99,7 @@ def servicios_oculares():
                 file.save(os.path.join(app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(app.config["UPLOAD_FOLDER"],filename)
                 predictions_raw=red(img_modelo)
-                algo=list(predictions_raw[0][0])
+                algo=list(predictions_raw[0])
                 s=algo[0]
                 dr=algo[1]
                 scr=algo[2]
