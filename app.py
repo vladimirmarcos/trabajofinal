@@ -25,7 +25,7 @@ from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    return redirect(url_for('login'))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -34,26 +34,34 @@ def load_user(user_id):
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error=None
+    user=None
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('servicios_oculares'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_by_email(form.email.data)
-        if user is not None and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            next_page = request.args.get('next')
-            if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
-            return redirect(next_page)
-        else: 
-            error = f'El usuario no esta registrado'
-            return render_template('login_form.html', form=form,error=error)
-    return render_template('login_form.html', form=form,error=error)
+        if user is not None:
+            clave=user.check_password(form.password.data)
+            if clave:
+                login_user(user, remember=form.remember_me.data)
+                next_page = request.args.get('next')
+                if not next_page or url_parse(next_page).netloc != '':
+                    next_page = url_for('servicios_oculares')
+                return redirect(next_page)
+            else:
+                 error = f'La contraseña no es la indicada D: '
+                 return render_template('login_form.html', form=form,error=error,user=user)
+        else:
+            #print (user.check_passaword(form.password.data)) 
+            userio=form.email.data
+            error = f'El usuario {userio} no esta registrado'
+            return render_template('login_form.html', form=form,error=error,user=user)
+    return render_template('login_form.html', form=form,error=error,user=user)
 
 @app.route("/signup/", methods=["GET", "POST"])
 def show_signup_form():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('servicios_oculares'))
     form = SignupForm()
     error = None
     if form.validate_on_submit():
@@ -72,8 +80,9 @@ def show_signup_form():
             user.save()
             login_user(user, remember=True)
             next_page = request.args.get('next', None)
+            
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
+                next_page = url_for('login')
             return redirect(next_page)
     return render_template("signup_form.html", form=form, error=error)
 
@@ -206,6 +215,8 @@ def logout():
 if __name__=="__main__":
     
     app.run(debug=True)
+
+
 
 
  

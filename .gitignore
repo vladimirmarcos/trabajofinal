@@ -249,6 +249,7 @@ $RECYCLE.BIN/
 *.lnk
 *.db
 /static/graficos/*.jpg
-static/uploads/*.jpeg
+static/uploads
 ejemplo.py
+*.h5
 # End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python
