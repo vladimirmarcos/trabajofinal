@@ -1,9 +1,24 @@
 {% extends "base.html" %}
 {% block title %}Login{% endblock %}
 {% block content %}
+{% if error %}
+<div class="container-fluid">
+        {%if user %}
+        
+            <div class="alert alert-danger alert-dismissible">
+                <button class="btn-close" data-bs-dismiss="alert"></button>
+                {{ error }}
+            </div>
+        {%else %}
+            <div class="alert alert-danger alert-dismissible">
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+            {{ error }}
+            <a class="alert-link" href="{{ url_for('show_signup_form') }}"">Presione aquí para registrarlo</a>
+        </div>
+        {% endif %}
 
-
-
+</div>
+{% endif %}
     <div class="container">
         <div class="row">
             <div class="col">
