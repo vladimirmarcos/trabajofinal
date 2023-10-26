@@ -1,0 +1,261 @@
+/*navbar*/
+
+.navbar{
+    padding: 2rem;
+    background-color: #f5f6f7;
+}
+.navbar img {
+    max-width: 50px;
+    max-width: 50px;
+}
+
+.navbar-collapse{
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+section{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+h1 {
+    font-size: 2.5rem;
+    font-family: 'Open Sans', sans-serif;
+
+}
+.seccion-oscura{
+    background-color: #1b1b32;
+    color: white;
+}
+.seccion-clara{
+    color: black;
+    background-color: white;
+
+}
+.seccion-descripcion{
+    font-size: 1.2rem;
+    color: #584e4e;
+}
+.texto-negro{
+    color: black;
+}
+.texto-blanco{
+    color: white;
+}
+.hero-principal{
+
+    padding: 3rem;
+}
+.hero-img-desarrollado{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin: 20px;
+}
+
+.seccion-titulo{
+    font-size: 2rem;
+    padding: 15px 0;
+    font-family: 'Open Sans', sans-serif
+
+}
+.seccion-texto{
+    font-size: 1.2rem;
+}
+/*Hero seccion*/
+
+.hero {
+    background-color: #f5f6f7;
+    min-height: 450px;
+    text-align: center;
+}
+
+
+.hero-principal h2{
+    font-size: 1.5rem;
+    color: #615151;
+}
+
+
+
+/*noticias*/
+.noticias{
+    height: 500px;
+    padding: 10px;
+}
+.noticias .contenedor{
+    max-width: 600px;
+    text-align: center;
+
+}
+
+
+/*experiencia*/
+.experiencia{
+    padding: 40px;
+}
+
+.experiencia .columna {
+    padding: 20px;
+    border: 2px solid #8080804d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    transition: all 0.2s ease-in;
+}
+.experiencia .columna:hover{
+    color: white;
+    background-color: #1b1b32;
+}
+.experiencia-titulo{
+    font-size: 25px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+.experiencia img {
+    max-width: 200px;
+    max-height: 200px;
+}
+.experiencia SMI {
+    max-height: 100px;
+}
+/*Fin experiencia*/
+/*proyecto*/
+.proyectos-recientes{
+    padding: 40px;
+}
+
+/*fin proyecto*/
+
+/*testimonios*/
+.ultimas-noticias{
+    padding: 40px 40px 80px 40px;
+}
+.ultimas-noticias .carousel{
+    max-width: 800px;
+}
+
+/*fin testimonios*/
+.preguntas-frecuentes{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+.servicios-oculares{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+#informacion{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+
+.paciente{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+.preguntas-frecuentes .container .row .columna i{
+    object-fit: contain;
+}
+
+.login{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+.historial{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+.historial-dni{
+    min-height: 30vh;
+    min-width: 100vh;
+}
+.registro{
+    min-height: 100vh;
+}
+
+/*contacto*/
+.contacto{
+    min-width: 100vh;
+}
+.contacto .contenedor{
+    min-width: 100vh;
+    min-height: 200px ;
+    padding: 20px;
+}
+
+.talleres-afiliados .card img{
+	
+	max-height:400px;
+}
+.servicios-afiliados .card img{
+	
+	max-height: 500px;
+    max-width: auto;
+}
+
+.talleres-afiliados .card {
+    max-width: 1000px;
+    
+}
+
+/*comercios adheridos
+.experiencia .seccion-clara .preguntas-frecuentes .container .row img {
+
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+
+/*fin comercios adheridos*/
+.contacto .row{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.contacto .descripcion{
+    color: white;
+    font-size: 1.2rem;
+}
+.contacto button{
+
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    border: 2px solid white;
+    padding: 1.25em 2em;
+    margin: 10px;
+    border-radius: 100px;
+    transition: all 0.2s ease-in-out;
+}
+.contacto button:hover{
+    background-color: white;
+    color: black;
+}
+.contacto button:hover i{
+
+    color: black;
+
+}
+.contacto button i{
+    color: white;
+    font-size: 1.3rem;
+    transition: all 0.2s ease-in-out;
+}
+
+/*fin contacto*/
+/* responsivo*/
+@media screen and (max-width: 767px){
+    .navbar-brand{
+        display: none;
+    }
+   
+
+}
+
+
