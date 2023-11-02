@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbar-toggler">
       <a class="navbar-brand" href="#">
         
-        <a class="navbar-brand" href="{{url_for('index')}}">
+        <a class="navbar-brand" href="{{url_for('public.index')}}">
           <img src="{{ url_for('static', filename='img/logo.png') }}" >
           
         </a>
@@ -18,7 +18,7 @@
       <!-- poner imagen 2 horas 29 minutos-->
       <ul class="navbar-nav d-flex justify-content-center align-item-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Inicio</a>
+          <a class="nav-link active" aria-current="page" href="{{url_for('public.index')}}">Inicio</a>
         </li>
        
 
@@ -30,10 +30,10 @@
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          <a class="nav-link" href="{{ url_for('user.login') }}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link"  href="{{ url_for('show_signup_form') }}"">Registrar</a>
+          <a class="nav-link"  href="{{ url_for('user.show_signup_form') }}"">Registrar</a>
         </li>
         
       </ul>
@@ -58,7 +58,7 @@
         <!-- poner imagen 2 horas 29 minutos-->
         <ul class="navbar-nav d-flex justify-content-center align-item-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('index')}}">Inicio</a>
+            <a class="nav-link active" aria-current="page" href="{{url_for('public.index')}}">Inicio</a>
           </li>
          
 
@@ -70,7 +70,7 @@
           <li class="nav-item" >{{ current_user.name }} </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('logout') }}"">Salir</a>
+            <a class="nav-link" href="{{ url_for('user.logout') }}"">Salir</a>
           </li>
 
          

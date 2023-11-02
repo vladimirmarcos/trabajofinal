@@ -1,0 +1,21 @@
+ImportError: cannot import name 'url_decode' from 'werkzeug.urls' 
+el bardo esta aca.... flask_login no es compatible con la version 3.0.0 la primera solucion es 
+pip uninstall werkzeug
+pip install werkzeug==2.3.0
+sale el el error de que Flask 3.0.0 requiere si o si werkzeug ==3.0.0
+Nos pasamos a la versión anterior de flask y se soluciona
+
+#####################################################################################################################
+
+Exception: Missing user_loader or request_loader.
+
+solucion 
+
+colocar en alguna parte de la app 
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get_by_id(int(user_id))      
+
+
+####################################################################################################################

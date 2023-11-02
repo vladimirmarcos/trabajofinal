@@ -13,7 +13,7 @@
             <div class="alert alert-danger alert-dismissible">
             <button class="btn-close" data-bs-dismiss="alert"></button>
             {{ error }}
-            <a class="alert-link" href="{{ url_for('show_signup_form') }}"">Presione aquí para registrarlo</a>
+            <a class="alert-link" href="{{ url_for('user.show_signup_form') }}"">Presione aquí para registrarlo</a>
         </div>
         {% endif %}
 
@@ -56,7 +56,7 @@
 
                     </div>
                     <div class="my-3">
-                        <span>¿No tienes cuenta ? <a href="{{url_for('show_signup_form')}}">Regístrate</a></span>
+                        <span>¿No tienes cuenta ? <a href="{{url_for('user.show_signup_form')}}">Regístrate</a></span>
                         <br>
                         <span><a href="#">Recuperar Password</a></span>
                     </div>

@@ -11,7 +11,7 @@
         <div class="alert alert-danger alert-dismissible">
             <button class="btn-close" data-bs-dismiss="alert"></button>
             {{ error }}
-     <a class="alert-link" href="{{ url_for('login') }}"">Presione aquí para ingresar</a>
+     <a class="alert-link" href="{{ url_for('user.login') }}"">Presione aquí para ingresar</a>
     
     </div>
     </div>
@@ -65,7 +65,7 @@
 
                     </div>
                     <div class="my-3">
-                        <span>ya tienes cuenta <a href="{{url_for('login')}}">Ingresa</a></span>
+                        <span>ya tienes cuenta <a href="{{url_for('user.login')}}">Ingresa</a></span>
                         
                     </div>
                  </form>
