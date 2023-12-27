@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="servicios-oculares">
+  
+       
+
+        {% if error %}
+        <div class="container-fluid">
+                <div class="alert alert-danger alert-dismissible">
+                <button class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ error }}
+                <a class="alert-link" href="{{ url_for('servicios_paciente') }}"">Presione aquí para registrarlo</a>
+        </div>
+</div>
+        {% endif %}
+        <div class="container-fluid">
+            <div class="container mt-5">
+                <div class="row">
+                   
+                    <div class="col-md-6">
+                        <h1>Tomografía de Coherencia Óptica (OCT)</h1>
+                        <p class="text-left">
+                            La Tomografía de Coherencia Óptica (OCT) es una técnica de imágenes médicas no invasiva que utiliza luz infrarroja de alta resolución para obtener imágenes tridimensionales de tejidos biológicos. Se utiliza ampliamente en oftalmología para examinar la retina y otras estructuras oculares, así como en medicina cardiovascular y dermatología. La OCT permite a los profesionales de la salud diagnosticar enfermedades, monitorear la progresión de afecciones y guiar procedimientos médicos de manera más precisa.
+        
+                        </p
+        
+                      
+       
+                    </div>
+                    
+                   
+        <div class="col-md-6">
+                        <!-- Aquí puedes agregar imágenes relacionadas con la OCT si lo deseas -->
+                    </div>
+                
+               
+        </div>
+            </div>
+        </div>
+<form  class='row' method='POST' enctype="multipart/form-data">
+   
+    {{form.csrf_token}}
+   
+     <div class="row mb-1">
+        <div class="col-5"></div>
+        <div class="col-3 align-self-center align-items-center">
+            {{ form.image(class_="form-control") }}
+         </div>
+     </div>
+         <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{form.dni(class_="form-control-md",placeholder='dni del paciente de TCO')}}
+         </div>
+        </div>
+     
+    
+    <div class="container d-flex justify-content-center align-item-center">
+    <button type="submit" class="btn btn-primary">Enviar</button>
+    </div>
+  </form>
+
+
+  {% if mensaje1 != ''%}
+
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ojo Sano</th>
+                        <th> DR</th>
+                        <th>CSR</th>
+            
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>{{mensaje1}}</td>
+                        <td>{{mensaje2}}</td>
+                        <td>{{mensaje3}}</td>
+                    </tr>
+                </tbody>
+            
+              
+            
+            </thead>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+  <div class="container py-4">
+  <img src="{{name}}" class="img-fluid rounded">
+</div>
+  
+  {% endif %} 
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+
+
+
+
+<div >
+    {% if error %}
+    <p style="color: red;"><strong>Error:</strong> {{ error }}
+    {% endif %}
+    <div class="paciente">
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+    
+                </div>
+                <div class="col">
+                    <div class="text-end">
+                            
+                     <h2 class="fw-bold text-center py-5">Registro de paciente</h2>
+    
+                     <!--Form -->
+                     <form action=""  method="post">
+                        {{ form.hidden_tag() }}
+                        <div class="row mb-4">
+                            <div class="col">
+                           <div class="text-start"> {{ form.name.label(class_="form-label")}}  </div>
+                           {{ form.name(class_="form-control",placeholder='Nombre') }} 
+                           {% for error in form.name.errors %}
+                           <span style="color: red;">{{ error }}</span>
+                           {% endfor %}
+                        </div>
+                        <div class="col">
+                            <div class="text-start">{{ form.dni.label(class_="form-label")}}</div>
+                            {{ form.dni(class_="form-control",placeholder='dni')}}
+                            {% for error in form.edad.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+
+                        </div>
+
+                        </div>
+                   
+
+                        <div class="row mb-4">
+                            <div class="col">
+                            <div class="text-start">{{ form.edad.label(class_="form-label")}}</div>
+                            {{ form.edad(class_="form-control",placeholder='Edad')}} 
+                            {% for error in form.edad.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    
+                    <div class="col">
+                        <div class="text-start">{{ form.altura.label(class_="form-label")}}</div>
+                        {{ form.altura (class_="form-control",placeholder='altura') }} 
+                        {% for error in form.altura.errors %}
+                            <span style="color: red;">{{ error }}</span>
+                        {% endfor %}
+
+                    </div>
+                </div>
+
+                    
+
+
+                        <div class="mb-4">
+                            <div class="text-start">{{ form.peso.label(class_="form-label")}}</div>
+                            {{ form.peso (class_="form-control",placeholder='peso') }}
+                            {% for error in form.peso.errors %}
+                                 <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-start">{{ form.antecedente.label(class_="form-label")}}</div>
+                            {{ form.antecedente (class_="form-control",placeholder='antecedentes') }}
+                            {% for error in form.antecedente.errors %}
+                                <span style="color: red;">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                       
+                        <div class="d-grid">
+                            {{ form.submit(class_="btn btn-primary") }}
+    
+                        </div>
+                       
+                     </form>
+    
+                    
+                    </div>
+                </div>
+    
+    
+                <div class="col">
+    
+                </div>
+            </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+        </div>
+       
+</div>
+        
+
+{% endblock %}
