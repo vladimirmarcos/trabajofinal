@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request
 from flask_login import current_user, login_user, logout_user,login_required
 from werkzeug.urls import url_parse
-from .decodarators import admin_required
+
 
 from app import login_manager
 from . import user_bp
@@ -69,7 +69,7 @@ def show_signup_form():
 
 @user_bp.route('/user', methods=['GET', 'POST'])
 @login_required
-@admin_required
+
 def index():
     return render_template("user/index_user.html")
 @user_bp.route('/logout')
