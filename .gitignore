@@ -252,4 +252,3 @@ $RECYCLE.BIN/
 static/uploads
 ejemplo.py
 *.h5
-# End of https://www.toptal.com/developers/gitignore/api/windows,linux,macos,python

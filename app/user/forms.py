@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField,BooleanField,FileField,SelectField,IntegerField,DecimalField,TextAreaField
+from wtforms import StringField, SubmitField, PasswordField,BooleanField,SelectField
 from wtforms.validators import DataRequired, Email, Length
 class SignupForm(FlaskForm):
     name = StringField('Nombre', validators=[DataRequired(message="el campo es obligatorio"), Length(min=3,max=64,message="El campo es oblogatorio y debe tener entre 3 a 64 caracteres")])

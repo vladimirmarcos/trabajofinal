@@ -11,10 +11,11 @@
 </head>
 <body>
    
-  
+  {% if current_user.is_anonymous %}
   {% include "navbar.html" %}
- 
-
+  {%else%}
+  {% include "navbarusuarios.html" %}
+  {% endif %}
   {% block content %}
 
   {% endblock %}
