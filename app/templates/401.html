@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-    Ooops!! No tienes permisos de acceso
+<div class="container errores">
+    <h1 class="display-4 text-danger">Error 401</h1>
+    <p class="lead">Acceso no autorizado</p>
+    <p>Para acceder a esta página, debes iniciar sesión o proporcionar credenciales válidas.</p>
+</div>
+    
 {% endblock %}

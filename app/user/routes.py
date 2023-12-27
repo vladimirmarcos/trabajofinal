@@ -30,7 +30,7 @@ def login():
                     next_page = url_for('user.index')
                 return redirect(next_page)
             else:
-                 error = f'La contraseña no es la indicada D: '
+                 error = f'La contraseña no es la indicada '
                  return render_template('user/login_form.html', form=form,error=error,user=user)
         else:
             #print (user.check_passaword(form.password.data)) 
@@ -41,7 +41,6 @@ def login():
 
 @user_bp.route("/signup/", methods=["GET", "POST"])
 def show_signup_form():
-    print ("entramos al sign up")
     if current_user.is_authenticated:
         return redirect(url_for('user.index'))
     form = SignupForm()

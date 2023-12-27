@@ -12,8 +12,9 @@ from werkzeug.utils import secure_filename
 
 
 
-@login_required
+
 @servicios_bp.route('/servicios_oculares', methods=['GET', 'POST'])
+@login_required
 def servicios_oculares():
     flag=1
     mensaje1="" 
@@ -48,8 +49,9 @@ def servicios_oculares():
                 return render_template("servicios/servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
     return render_template("servicios/servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
 
-@login_required   
+ 
 @servicios_bp.route('/paciente', methods=['GET', 'POST'])
+@login_required  
 def servicios_paciente():
     error=None
     form=PacienteForm(request.form)
@@ -69,8 +71,6 @@ def servicios_paciente():
             # Creamos el usuario y lo guardamos
                 paciente=Paciente(dni=dni)
                 paciente.save()
-                rutas_martin=os.getcwd()
-                print(rutas_martin)
                 os.chdir("app/static/uploads")
                 os.makedirs(nombre)
                 os.chdir("../../../")
