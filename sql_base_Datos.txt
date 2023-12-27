@@ -1,0 +1,43 @@
+CREATE TABLE "diagnostico" (
+	"id_diagnostico"	INTEGER NOT NULL,
+	"id_paciente"	INTEGER NOT NULL,
+	"ojo_sano"	REAL NOT NULL,
+	"dr"	REAL NOT NULL,
+	"crs"	REAL NOT NULL,
+	PRIMARY KEY("id_diagnostico")
+);
+
+CREATE TABLE "fisico_paciente" (
+	"id_fisico"	INTEGER NOT NULL,
+	"nombre"	TEXT NOT NULL,
+	"edad"	INTEGER NOT NULL,
+	"altura"	REAL NOT NULL,
+	"peso"	REAL NOT NULL,
+	"antecedente"	TEXT NOT NULL,
+	"id_paciente"	INTEGER NOT NULL,
+	PRIMARY KEY("id_fisico")
+);
+
+CREATE TABLE "imagenes" (
+	"id_imagenes"	INTEGER NOT NULL,
+	"direccion"	TEXT NOT NULL,
+	"id_paciente"	INTEGER NOT NULL,
+	"imagenes_fecha_tomada"	TEXT NOT NULL,
+	PRIMARY KEY("id_imagenes")
+);
+
+CREATE TABLE "paciente" (
+	"id_paciente"	INTEGER NOT NULL,
+	"dni"	INTEGER NOT NULL,
+	PRIMARY KEY("id_paciente")
+);
+
+CREATE TABLE "usuario" (
+	"id"	INTEGER NOT NULL,
+	"name"	TEXT NOT NULL,
+	"email"	TEXT NOT NULL UNIQUE,
+	"password"	TEXT NOT NULL,
+	"is_admin"	BOOLEAN,
+	"usuario_profesion"	TEXT NOT NULL,
+	PRIMARY KEY("id")
+);
