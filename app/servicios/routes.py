@@ -35,11 +35,12 @@ def servicios_oculares():
                 ruta=os.path.join(current_app.config["UPLOAD_FOLDER"],filename)
                 file.save(os.path.join(current_app.config["UPLOAD_FOLDER"],filename))
                 img_modelo= os.path.join(current_app.config["UPLOAD_FOLDER"],filename)
-                print (img_modelo)
                 enfermedades=red(img_modelo)
                 caso=Diagnostico(id_paciente=id_paciente,ojo_sano=enfermedades[0],dr=enfermedades[1],crs=enfermedades[2])
+                caso.save()
                 
                 imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
+                imagen.save()
                
                
                 return render_template ('servicios/servicios_oculares.html',flag=0,form=form,mensaje1=enfermedades[0],mensaje2=enfermedades[1],mensaje3=enfermedades[2],name="static/"+filename)
