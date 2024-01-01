@@ -2,7 +2,7 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db
 
-class User(db.Model, UserMixin):
+class Useradmin(db.Model, UserMixin):
     __tablename__ = 'usuario'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), nullable=False)
@@ -22,16 +22,12 @@ class User(db.Model, UserMixin):
         db.session.commit()
     @staticmethod
     def get_by_id(id):
-        return User.query.get(id)
+        return Useradmin.query.get(id)
     @staticmethod
     def get_by_email(email):
-        return User.query.filter_by(email=email).first()
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
-    @staticmethod
-    def get_all():
-        return User.query.all()
+        return Useradmin.query.filter_by(email=email).first()
+    
+  
     
 
 

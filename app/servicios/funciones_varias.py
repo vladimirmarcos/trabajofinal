@@ -1,10 +1,8 @@
-import cv2 
 from . import servicios_bp
-import numpy as np
 import os
 import tensorflow as tf
 from flask import current_app
-from keras.models import load_model
+
 
 
 #-----------------------------------------------------------------------------------------------------

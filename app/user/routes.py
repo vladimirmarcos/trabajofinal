@@ -6,21 +6,20 @@ from werkzeug.urls import url_parse
 from app import login_manager
 from . import user_bp
 from .forms import SignupForm, LoginForm
-from .models import User
+from .models_registro_logeo import Useradmin
 
 
 @user_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    
     error=None
     user=None
     if current_user.is_authenticated:
-        return redirect(url_for('user.index'))
+        return render_template('user/index_user.html', user=current_user)
        
     form = LoginForm()
     if (form.validate_on_submit()):
         
-        user = User.get_by_email(form.email.data)
+        user = Useradmin.get_by_email(form.email.data)
         if user is not None:
             clave=user.check_password(form.password.data)
             if clave:
@@ -33,7 +32,6 @@ def login():
                  error = f'La contraseña no es la indicada '
                  return render_template('user/login_form.html', form=form,error=error,user=user)
         else:
-            #print (user.check_passaword(form.password.data)) 
             userio=form.email.data
             error = f'El usuario {userio} no esta registrado'
             return render_template('user/login_form.html', form=form,error=error,user=user)
@@ -50,13 +48,11 @@ def show_signup_form():
         email = form.email.data
         password = form.password.data
         usuario_profesion=form.usuario_profesion.data
-        user = User.get_by_email(email)
+        user = Useradmin.get_by_email(email)
         if user is not None:
             error = f'El email {email} ya está siendo utilizado por otro usuario'
         else:
-            # Creamos el usuario y lo guardamos
-            
-            user = User(name=name, email=email,usuario_profesion=usuario_profesion)
+            user = Useradmin(name=name, email=email,usuario_profesion=usuario_profesion)
             user.set_password(password)
             user.save()
             login_user(user, remember=True)
@@ -69,9 +65,10 @@ def show_signup_form():
 
 @user_bp.route('/user', methods=['GET', 'POST'])
 @login_required
-
 def index():
     return render_template("user/index_user.html")
+
+
 @user_bp.route('/logout')
 def logout():
     logout_user()
@@ -80,4 +77,4 @@ def logout():
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get_by_id(int(user_id))
+    return Useradmin.get_by_id(int(user_id))

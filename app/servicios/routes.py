@@ -16,10 +16,10 @@ from werkzeug.utils import secure_filename
 @servicios_bp.route('/servicios_oculares', methods=['GET', 'POST'])
 @login_required
 def servicios_oculares():
-    flag=1
-    mensaje1="" 
+    
+     
     error=None
-    flag=0
+    
     form=ImgForm(request.form)  
     if form.validate_on_submit():
         file=request.files["image"]
@@ -33,21 +33,32 @@ def servicios_oculares():
                 nombre=fisico.nombre
                 filename="uploads/"+nombre+"/"+filename
                 ruta=os.path.join(current_app.config["UPLOAD_FOLDER"],filename)
-                file.save(os.path.join(current_app.config["UPLOAD_FOLDER"],filename))
+                file.save(ruta)
                 img_modelo= os.path.join(current_app.config["UPLOAD_FOLDER"],filename)
                 enfermedades=red(img_modelo)
-                caso=Diagnostico(id_paciente=id_paciente,ojo_sano=enfermedades[0],dr=enfermedades[1],crs=enfermedades[2])
-                caso.save()
+                suma=enfermedades[0]+enfermedades[1]+enfermedades[2]
+                if suma >0.6:
+                    caso=Diagnostico(id_paciente=id_paciente,ojo_sano=enfermedades[0],dr=enfermedades[1],crs=enfermedades[2])
+                    caso.save()
                 
-                imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
-                imagen.save()
-               
-               
-                return render_template ('servicios/servicios_oculares.html',flag=0,form=form,mensaje1=enfermedades[0],mensaje2=enfermedades[1],mensaje3=enfermedades[2],name="static/"+filename)
+                    imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
+                    imagen.save()
+                    return render_template ('servicios/servicios_oculares.html',form=form,mensaje1=enfermedades[0],mensaje2=enfermedades[1],mensaje3=enfermedades[2],name="static/"+filename)
+                else:
+                     error="La red arrojo valores muy bajos, intente subir nuevamente T.C.O. En Caso de que persista el error, comuniquese con el equipo de soporte"
+                     try:
+                            os.remove(ruta)
+                            print(f"El archivo {ruta} ha sido eliminado exitosamente.")
+                            
+                     except FileNotFoundError:
+                        print(f"El archivo {ruta} no existe.")
+                     except Exception as e:
+                            print(f"Error al intentar eliminar el archivo: {e}")
+                     return render_template ('servicios/servicios_oculares.html',form=form,mensaje1="",mensaje2="",mensaje3="",error=error,name="static/"+filename)
                 
         else: 
                 error = f'El paciente con {dni} no esta registrado'
-                return render_template("servicios/servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
+                return render_template("servicios/servicios_oculares.html",form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
     return render_template("servicios/servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
 
  

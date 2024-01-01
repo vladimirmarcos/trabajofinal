@@ -10,7 +10,9 @@
                 <div class="alert alert-danger alert-dismissible">
                 <button class="btn-close" data-bs-dismiss="alert"></button>
                     {{ error }}
-                <a class="alert-link" href="{{ url_for('servicios_paciente') }}"">Presione aquí para registrarlo</a>
+                {%if error!="La red arrojo valores muy bajos, intente subir nuevamente T.C.O. En Caso de que persista el error, comuniquese con el equipo de soporte"%}
+                <a class="alert-link" href="{{ url_for('servicios.servicios_paciente') }}"">Presione aquí para registrarlo</a>
+                {% endif %}  
                 </div>
         </div>
         {% endif %}
@@ -18,14 +20,27 @@
             <div class="container mt-5">
                 <div class="row">
                    
-                    <div class="col-md-6">
-                        <h1>Tomografía de Coherencia Óptica (OCT)</h1>
-                        <p class="text-left">
-                            La Tomografía de Coherencia Óptica (OCT) es una técnica de imágenes médicas no invasiva que utiliza luz infrarroja de alta resolución para obtener imágenes tridimensionales de tejidos biológicos. Se utiliza ampliamente en oftalmología para examinar la retina y otras estructuras oculares, así como en medicina cardiovascular y dermatología. La OCT permite a los profesionales de la salud diagnosticar enfermedades, monitorear la progresión de afecciones y guiar procedimientos médicos de manera más precisa.
-        
-                        </p
-                    </div> 
-       
+                    <div class="col-md-12">
+                        <h1 class="display-4">Tomografía de Coherencia Óptica (OCT)</h1>
+                        <p class="lead text-justify"> 
+                            La Tomografía de Coherencia Óptica (OCT) es una avanzada técnica de imágenes médicas no invasiva que emplea luz infrarroja de alta resolución para capturar imágenes tridimensionales de tejidos biológicos.
+                        </p> 
+
+                        <p class="lead text-justify"> 
+                            Ampliamente utilizada en oftalmología, la OCT permite examinar la retina y otras estructuras oculares con gran detalle. Asimismo, encuentra aplicaciones fundamentales en medicina cardiovascular y dermatología.
+                        </p> 
+
+                        <p class="lead text-justify"> 
+                            Esta tecnología permite a los profesionales de la salud realizar diagnósticos precisos, monitorear la progresión de enfermedades y guiar procedimientos médicos con una precisión sin precedentes.
+                        </p> 
+                        <p class="lead text-justify">
+                            Para optimizar su experiencia con nuestro servicio, le recomendamos utilizar imágenes en formato .jpg y un tamaño de 256x256</p>
+                            
+                            <p class="lead text-justify">
+                                Además, en caso de que la imagen no cumpla con el tamaño recomendado, nuestro sistema intentará redimensionarla automáticamente. Sin embargo, si el resultado no es satisfactorio, se mostrará un mensaje de error.  En ese caso, le instamos a que se ponga en contacto con nuestro equipo de soporte para recibir asistencia adicional.
+                            </p>
+                            
+                        
                     </div>
                     
                    
@@ -46,17 +61,17 @@
     {{form.csrf_token}}
    
      <div class="row mb-1">
-        <div class="col-5"></div>
-        <div class="col-3 align-self-center align-items-center">
-            {{ form.image(class_="form-control") }}
-         </div>
+                <div class="col-5"></div>
+                <div class="col-3 align-self-center align-items-center">
+                        {{ form.image(class_="form-control") }}
+                </div>
      </div>
-         <div class="row mb-1">
+     <div class="row mb-1">
             <div class="col-5"></div>
             <div class="col-3 align-self-center align-items-center">
                 {{form.dni(class_="form-control-md",placeholder='dni del paciente de TCO')}}
-         </div>
-        </div>
+            </div>
+     </div>
      
     
     <div class="container d-flex justify-content-center align-item-center">
@@ -73,34 +88,37 @@
     <div class="row">
         <div class="col">
             <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Ojo Sano</th>
-                        <th> DR</th>
-                        <th>CSR</th>
+                    <thead>
+                        <tr>
+                                <th>Ojo Sano</th>
+                                <th> DR</th>
+                                <th>CSR</th>
             
-                    </tr>
-                <tbody>
-                    <tr>
-                        <td>{{mensaje1}}</td>
-                        <td>{{mensaje2}}</td>
-                        <td>{{mensaje3}}</td>
-                    </tr>
-                </tbody>
+                        </tr>
+                    </thead>
+                    
+                    
+                    <tbody>
+                            <tr>
+                                <td>{{mensaje1}}</td>
+                                <td>{{mensaje2}}</td>
+                                <td>{{mensaje3}}</td>
+                            </tr>
+                    </tbody>
             
               
             
-            </thead>
+           
             </table>
         </div>
 
     </div>
 
-</div>
+  </div>
 
   <div class="container">
-  <img src="{{name}}" class="img">
-</div>
+        <img src="{{name}}" class="img">
+  </div>
   
   {% endif %} 
 
