@@ -26,6 +26,9 @@ class Useradmin(db.Model, UserMixin):
     @staticmethod
     def get_by_email(email):
         return Useradmin.query.filter_by(email=email).first()
+    @staticmethod
+    def get_all():
+        return Useradmin.query.all()
     
   
     

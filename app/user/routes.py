@@ -13,6 +13,8 @@ from .models_registro_logeo import Useradmin
 def login():
     error=None
     user=None
+    if current_user.is_authenticated and current_user.is_admin:
+        return redirect(url_for('admin.crear_admin'))
     if current_user.is_authenticated:
         return render_template('user/index_user.html', user=current_user)
        
@@ -32,6 +34,7 @@ def login():
                  error = f'La contraseña no es la indicada '
                  return render_template('user/login_form.html', form=form,error=error,user=user)
         else:
+            
             userio=form.email.data
             error = f'El usuario {userio} no esta registrado'
             return render_template('user/login_form.html', form=form,error=error,user=user)

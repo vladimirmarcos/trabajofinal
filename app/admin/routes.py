@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, request
-from flask_login import login_required
+from flask_login import login_required,current_user
 from werkzeug.urls import url_parse
 import os
 
@@ -15,12 +15,12 @@ from app import login_manager
 from . import admin_bp
 #from models import Useradmin
 
-@admin_bp.route("/algo")
+@admin_bp.route("/crear_admin")
 @login_required
 @admin_required
-def algo():
-    #lista=current_user.get_all()
-    #print (lista)
-    return(render_template("admin/admin.html"))
+def crear_admin():
+    lista=current_user.get_all()
+    
+    return render_template("admin/admin.html",users=lista)
 
 

@@ -1,5 +1,39 @@
 {% extends 'base_admin.html' %}
 
 {% block content %}
-<h1>hola</h1>
+<h2>Tabla</h2>
+    
+  
+<table class="table">
+      
+     
+<thead>
+        
+     
+<tr>
+          
+      
+
+          
+ 
+<th scope="col">id</th>
+          
+      
+<th scope="col">usuario</th>
+          
+   
+
+        
+       
+</tr>
+      </thead>
+      <tbody>
+        {%for user in users%}
+        <tr>
+          <th scope="row">{{user.id}}</th>
+          <td>{{user.name}}</td>
+          
+   {%endfor%}
+      </tbody>
+    </table>
   {% endblock %}
