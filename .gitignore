@@ -249,6 +249,8 @@ $RECYCLE.BIN/
 *.lnk
 *.db
 /static/graficos/*.jpg
-static/uploads
+static/uploads/*.jpg
+static/uploads/*.jpeg
 ejemplo.py
 *.h5
+*.jpeg
