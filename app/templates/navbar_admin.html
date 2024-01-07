@@ -16,7 +16,7 @@
         
     
         <li class="nav-item">
-          <a class="nav-link" href="#">Eliminar Usuario</a>
+          <a class="nav-link" href="{{ url_for('admin.eliminar_usuario') }}">Eliminar Usuario</a>
         </li>
 
         <li class="nav-item">
@@ -26,7 +26,7 @@
           <a class="nav-link"  href="#">Bajar a Comun</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('user.logout') }}"">Salir</a>
+          <a class="nav-link" href="{{ url_for('user.logout') }}">Salir</a>
         </li>
         
       </ul>

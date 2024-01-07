@@ -62,10 +62,11 @@ def servicios_oculares():
                 return render_template("servicios/servicios_oculares.html",form=form,mensaje=None)
     return render_template("servicios/servicios_oculares.html",form=form)
 
- 
+
 @servicios_bp.route('/paciente', methods=['GET', 'POST'])
-@login_required  
+@login_required 
 def servicios_paciente():
+    
     form=PacienteForm(request.form)
     if form.validate_on_submit():
             nombre = form.name.data

@@ -8,7 +8,7 @@ from .models_registro_logeo import Useradmin
 
 
 @user_bp.route('/ingresar', methods=['GET', 'POST'])
-def ingresar():
+def login():
     """_Funcion de ingreso_
 
     Returns:
@@ -29,7 +29,6 @@ def ingresar():
             if clave:
                 login_user(user, remember=form.remember_me.data)
                 succes_message="Bienvenido{}".format(user.name)
-                #flash(succes_message)
                 next_page = request.args.get('next')
                 if not next_page or url_parse(next_page).netloc != '':
                     next_page = url_for('user.index')

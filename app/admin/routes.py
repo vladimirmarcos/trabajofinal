@@ -3,19 +3,20 @@ from flask_login import current_user, login_user, logout_user,login_required
 from werkzeug.urls import url_parse
 import os
 
-from app import login_manager,models
+
+from app import login_manager
 from . import admin_bp
 from .forms import  LoginForm,SignupForm
 from .models import AdminUser
-
-
+from app.user.models_registro_logeo import Useradmin
+login_manager.login_view = "admin.ingresar_admin"
 
 from .decorators import admin_required
 
 from . import admin_bp
 
 
-@admin_bp.route('/admin_index', methods=['GET', 'POST'])
+@admin_bp.route('/admin_ingreso', methods=['GET', 'POST'])
 def ingresar_admin():
     """_Funcion de ingreso_
 
@@ -26,7 +27,7 @@ def ingresar_admin():
 
     
     if current_user.is_authenticated:
-        return render_template('admin/admin.html', user=current_user)
+        return render_template('admin/admin_index.html', user=current_user)
        
     form = LoginForm()
     if (form.validate_on_submit()):
@@ -40,21 +41,29 @@ def ingresar_admin():
                 
                 next_page = request.args.get('next')
                 if not next_page or url_parse(next_page).netloc != '':
-                    next_page = url_for('admin.crear_admin')
+                    next_page = url_for('admin.index_admin')
                 return redirect(next_page)
             else:
-                 current_app.logger.info('La contraseña no es la indicada')
+                 
                  flash('La contraseña no es la indicada ',"alert alert-danger")
                  return redirect(url_for("admin.ingresar_admin"))
         else:
             
             userio=form.email.data
-            #error =
-            current_app.logger.info('el usuario no esta registrado')
+            
+            
             flash( f'El usuario {userio} no esta registrado, como admin. Comuniquese con sistema para solucionar este problema',"alert alert-danger")
             return redirect(url_for("admin.ingresar_admin"))
             
-    return render_template('admin/admin_index.html', form=form)
+    return render_template('admin/admin_ingreso.html', form=form)
+
+
+@admin_bp.route("/admin_index", methods=["GET", "POST"])
+@admin_required
+def index_admin():
+    return render_template("admin/admin_index.html")
+
+
 
 @admin_bp.route("/registrar_admin", methods=["GET", "POST"])
 def registrar_admin():
@@ -78,20 +87,19 @@ def registrar_admin():
     return render_template("admin/registrar.html", form=form)
 
 
-@admin_bp.route("/crear_admin")
-@login_required
+@admin_bp.route("/eliminar_usuarios", methods=["GET", "POST"])
 @admin_required
-def crear_admin():
-    lista=current_user.get_all()
+def eliminar_usuario():
+    lista=Useradmin.get_all()
     
-    return render_template("admin/admin.html",users=lista)
+    return render_template("admin/eliminar_usuario.html",users=lista)
 
 
 
-@admin_bp.route('/logout')
+@admin_bp.route('/logout_admin')
 def logout():
     logout_user()
-    return redirect(url_for('admin.crear_admin'))
+    return redirect(url_for('public.index'))
 
 
 @login_manager.user_loader
