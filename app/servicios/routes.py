@@ -9,7 +9,7 @@ from .models import Imagenes,Diagnostico,Paciente,Fisico
 from datetime import date
 from .funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 from werkzeug.utils import secure_filename
-
+import datetime
 
 
 
@@ -35,7 +35,9 @@ def servicios_oculares():
                 enfermedades=red(img_modelo)
                 suma=enfermedades[0]+enfermedades[1]+enfermedades[2]
                 if suma >0.6:
-                    caso=Diagnostico(id_paciente=id_paciente,ojo_sano=enfermedades[0],dr=enfermedades[1],crs=enfermedades[2])
+                    fecha=datetime.datetime.now()
+                    fecha=datetime.datetime.strftime(fecha,"%Y%m%d")
+                    caso=Diagnostico(id_paciente=id_paciente,ojo_sano=enfermedades[0],dr=enfermedades[1],crs=enfermedades[2],fecha_subida=fecha)
                     caso.save()
                 
                     imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())

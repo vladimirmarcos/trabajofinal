@@ -25,6 +25,10 @@ class Diagnostico (db.Model, UserMixin):
         ojo_sano = db.Column(db.Float, nullable=False)
         dr = db.Column(db.Float, nullable=False)
         crs = db.Column(db.Float, nullable=False)
+        fecha_subida=db.Column(db.String(256), nullable=False)
+        fecha_modificada=db.Column(db.String(256))
+        quien_modifico=db.Column(db.String(256))
+
         def __repr__(self):
          return f'<diagnostico {self.id_diagnostico}>' 
         def save(self):

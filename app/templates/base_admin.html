@@ -1,3 +1,4 @@
+{%from "macros.html" import get_menssages%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +11,11 @@
     <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
 </head>
 <body>
-   
-  {% include "navbar_admin.html" %}
+  {% if current_user.is_authenticated %}
 
+  {% include "navbar_admin.html" %}
+  {% endif %}
+  {{get_menssages(massages)}}
   {% block content %}
 
   {% endblock %}

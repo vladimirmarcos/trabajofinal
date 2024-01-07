@@ -1,0 +1,66 @@
+{%from "macros.html" import get_menssages%}
+{% extends "base_admin.html" %}
+{% block title %}Registro de usuarios{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+            </div>
+            <div class="col">
+                <div class="text-end">
+                        
+                 <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+
+                 <!--Form -->
+                 <form action=""  method="post">
+                    {{ form.hidden_tag() }}
+                  
+                    <div class="mb-4">
+                        <div class="text-start">{{ form.correo.label(class_="form-label")}}</div>
+                        {{ form.correo(class_="form-control",placeholder='Email') }}
+                        {% for error in form.correo.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+                    </div>
+
+
+                    <div class="mb-4">
+                        <div class="text-start">{{ form.contraseña.label(class_="form-label")}}</div>
+                        {{ form.contraseña(class_="form-control",placeholder='Contraseña') }}
+                        {% for error in form.contraseña.errors %}
+                        <span style="color: red;">{{ error }}</span>
+                    {% endfor %}
+                    </div>
+               
+
+
+                    
+                    <div class="d-grid">
+                        {{ form.submit(class_="btn btn-primary") }}
+
+                    </div>
+                 
+                 </form>
+
+              
+                </div>
+            </div>
+
+
+            <div class="col">
+
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+</div>
+{% endblock %}

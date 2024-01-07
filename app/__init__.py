@@ -47,8 +47,8 @@ def create_app(settings_module):
 
     
 
-    #from .admin import admin_bp
-    #app.register_blueprint(admin_bp)
+    from .admin import admin_bp
+    app.register_blueprint(admin_bp)
 
     register_error_handlers(app)
     return app
