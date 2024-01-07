@@ -1,5 +1,5 @@
-from flask import render_template, redirect, url_for, request,current_app
-from flask_login import current_user, login_user, logout_user,login_required
+from flask import render_template,  request,current_app,redirect, url_for,flash
+from flask_login import login_required
 from werkzeug.urls import url_parse
 import os
 from app import login_manager
@@ -16,17 +16,14 @@ from werkzeug.utils import secure_filename
 @servicios_bp.route('/servicios_oculares', methods=['GET', 'POST'])
 @login_required
 def servicios_oculares():
-    
-     
-    error=None
-    
     form=ImgForm(request.form)  
     if form.validate_on_submit():
         file=request.files["image"]
         filename= secure_filename(file.filename)
         dni=form.dni.data
         paciente = Paciente.get_by_dni(dni)
-        if file and allowed_file(filename) and bool(paciente):
+        if bool(paciente):
+            if file and allowed_file(filename):
                 id_paciente=paciente.id_paciente
                 fisico=Fisico.get_by_id_paciente(id_paciente)
 
@@ -43,29 +40,30 @@ def servicios_oculares():
                 
                     imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
                     imagen.save()
-                    return render_template ('servicios/servicios_oculares.html',form=form,mensaje1=enfermedades[0],mensaje2=enfermedades[1],mensaje3=enfermedades[2],name="static/"+filename)
+                    flash("La red recibio satisfactoriamente la imagen. Se muestran los resultados más abajo.","alert alert-success")
+                    return render_template ('servicios/servicios_oculares.html',form=form,name="static/"+filename,mensaje=enfermedades)
                 else:
-                     error="La red arrojo valores muy bajos, intente subir nuevamente T.C.O. En Caso de que persista el error, comuniquese con el equipo de soporte"
+                     flash("La red arrojo valores muy bajos, intente subir nuevamente T.C.O. En Caso de que persista el error, comuniquese con el equipo de soporte","alert alert-danger")
+                     
                      try:
-                            os.remove(ruta)
-                            print(f"El archivo {ruta} ha sido eliminado exitosamente.")
-                            
+                            os.remove(ruta)  
                      except FileNotFoundError:
                         print(f"El archivo {ruta} no existe.")
                      except Exception as e:
                             print(f"Error al intentar eliminar el archivo: {e}")
-                     return render_template ('servicios/servicios_oculares.html',form=form,mensaje1="",mensaje2="",mensaje3="",error=error,name="static/"+filename)
-                
-        else: 
-                error = f'El paciente con {dni} no esta registrado'
-                return render_template("servicios/servicios_oculares.html",form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
-    return render_template("servicios/servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
+                     return render_template ('servicios/servicios_oculares.html',form=form,name="static/"+filename)
+            else: 
+               flash(f'El archivo subido no tiene el formato esperado.',"alert alert-danger")
+               return render_template("servicios/servicios_oculares.html",form=form,mensaje=None)   
+        else:   
+                flash(f'El paciente con {dni} no esta registrado. Lo puede hacer en la pestaña de Paciente.',"alert alert-danger")
+                return render_template("servicios/servicios_oculares.html",form=form,mensaje=None)
+    return render_template("servicios/servicios_oculares.html",form=form)
 
  
 @servicios_bp.route('/paciente', methods=['GET', 'POST'])
 @login_required  
 def servicios_paciente():
-    error=None
     form=PacienteForm(request.form)
     if form.validate_on_submit():
             nombre = form.name.data
@@ -76,8 +74,9 @@ def servicios_paciente():
             antecedente=form.antecedente.data
             pas =  Paciente.get_by_dni(dni)
             if pas is not None:
-                error = f'El paciente con {dni} ya esta registrado'
-                return render_template ('servicios/paciente.html',form=form,error=error)
+                
+                flash(f'El paciente con {dni} ya esta registrado',"alert alert-danger")
+                return redirect(url_for("servicios.servicios_paciente"))
                 
             else:
             # Creamos el usuario y lo guardamos
@@ -86,12 +85,12 @@ def servicios_paciente():
                 os.chdir("app/static/uploads")
                 os.makedirs(nombre)
                 os.chdir("../../../")
-                error = f'El paciente con {dni} se registro con exito.'
                 paciente=Paciente.get_by_dni(dni)
                 id_paciente=paciente.id_paciente 
                 fisico=Fisico(nombre=nombre,edad=age,altura=h,peso=peso,antecedente=antecedente,id_paciente=id_paciente)
                 fisico.save()
-                return render_template ('servicios/paciente.html',form=form,error=error)
-    return render_template ('servicios/paciente.html',form=form,error=error)    
+                flash(f'El paciente con nombre {nombre} y D.N.I. {dni} se registro con exito.',"alert alert-success")
+                return redirect(url_for("servicios.servicios_paciente"))
+    return render_template ('servicios/paciente.html',form=form)    
          
     

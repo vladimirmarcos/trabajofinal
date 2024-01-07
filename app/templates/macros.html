@@ -1,0 +1,18 @@
+{%macro get_menssages(massages)%}
+{%with massages =get_flashed_messages(with_categories=True)%}
+{% if massages%}
+
+    {% for category,message in massages%}
+        <div class="container-fluid {{category}}" ">
+           {{message}} 
+        </div>
+
+    {%endfor%}
+
+
+
+
+{%endif%}
+
+{%endwith%}
+{% endmacro%}

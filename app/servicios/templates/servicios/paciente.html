@@ -1,3 +1,5 @@
+{%from "macros.html" import get_menssages%}
+
 {% extends "base.html" %}
 
 {% block content %}
@@ -7,10 +9,8 @@
 
 
 
-<div >
-    {% if error %}
-    <p style="color: red;"><strong>Error:</strong> {{ error }}
-    {% endif %}
+
+ 
     <div class="paciente">
 
         <div class="container">
@@ -121,7 +121,7 @@
        
         </div>
        
-</div>
+    </div>
         
 
 {% endblock %}

@@ -1,21 +1,11 @@
+{%from "macros.html" import get_menssages%}
+
 {% extends "base.html" %}
 
 {% block content %}
 <div class="servicios-oculares">
   
        
-
-        {% if error %}
-        <div class="container-fluid">
-                <div class="alert alert-danger alert-dismissible">
-                <button class="btn-close" data-bs-dismiss="alert"></button>
-                    {{ error }}
-                {%if error!="La red arrojo valores muy bajos, intente subir nuevamente T.C.O. En Caso de que persista el error, comuniquese con el equipo de soporte"%}
-                <a class="alert-link" href="{{ url_for('servicios.servicios_paciente') }}"">Presione aquí para registrarlo</a>
-                {% endif %}  
-                </div>
-        </div>
-        {% endif %}
         <div class="container">
             <div class="container mt-5">
                 <div class="row">
@@ -79,7 +69,7 @@
     </div>
   </form>
 
-  {% if mensaje1 != ''%}
+  {% if mensaje%}
 
   <div class="container">
     <h2 class="font-weight-bold">A continuación, se muestran los resultados que dio la I.A.</h2>
@@ -100,9 +90,9 @@
                     
                     <tbody>
                             <tr>
-                                <td>{{mensaje1}}</td>
-                                <td>{{mensaje2}}</td>
-                                <td>{{mensaje3}}</td>
+                                <td>{{mensaje[0]}}</td>
+                                <td>{{mensaje[1]}}</td>
+                                <td>{{mensaje[2]}}</td>
                             </tr>
                     </tbody>
             

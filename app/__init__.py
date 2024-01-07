@@ -7,8 +7,16 @@ from logging.handlers import SMTPHandler
 login_manager = LoginManager()
 db = SQLAlchemy()
 
-
+   
 def create_app(settings_module):
+    """_summary_:función principal
+
+    Args:
+        settings_module (configuracion): _este argumento te dice como va a trabajar la app_
+
+    Returns:
+        _type_: _description_
+    """
     app = Flask(__name__, instance_relative_config=True)
     # Load the config file specified by the APP environment variable
     app.config.from_object(settings_module)
@@ -39,8 +47,8 @@ def create_app(settings_module):
 
     
 
-    from .admin import admin_bp
-    app.register_blueprint(admin_bp)
+    #from .admin import admin_bp
+    #app.register_blueprint(admin_bp)
 
     register_error_handlers(app)
     return app
@@ -48,6 +56,14 @@ def create_app(settings_module):
 
 
 def register_error_handlers(app):
+    """_Funcion para manejo de errores_
+
+    Args:
+        app (Aplicacion): _description_
+
+    Returns:
+        _type_: _description_
+    """
     @app.errorhandler(500)
     def base_error_handler(e):
         return render_template('500.html'), 500
@@ -59,6 +75,11 @@ def register_error_handlers(app):
         return render_template('401.html'), 401
     
 def configure_logging(app):
+    """_Configuración de loggs de la app _
+
+    Args:
+        app (_type_): _description_
+    """
     del app.logger.handlers[:]
 
     loggers = [app.logger, ]

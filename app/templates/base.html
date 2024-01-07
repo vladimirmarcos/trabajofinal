@@ -1,3 +1,5 @@
+{%from "macros.html" import get_menssages%}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +18,7 @@
   {%else%}
   {% include "navbarusuarios.html" %}
   {% endif %}
+  {{get_menssages(massages)}}
   {% block content %}
 
   {% endblock %}
