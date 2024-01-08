@@ -5,7 +5,7 @@ from app import login_manager
 from . import user_bp
 from .forms import SignupForm, LoginForm
 from .models_registro_logeo import Useradmin
-
+login_manager.login_view = "user.login"
 
 @user_bp.route('/ingresar', methods=['GET', 'POST'])
 def login():

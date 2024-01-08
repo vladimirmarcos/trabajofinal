@@ -1,18 +1,17 @@
 from flask import render_template, redirect, url_for, request,current_app,flash
 from flask_login import current_user, login_user, logout_user,login_required
 from werkzeug.urls import url_parse
-import os
+
 
 
 from app import login_manager
 from . import admin_bp
-from .forms import  LoginForm,SignupForm
+from .forms import  LoginForm,SignupForm,EliminacionForm,HacerEspecialistaForm
 from .models import AdminUser
 from app.user.models_registro_logeo import Useradmin
 login_manager.login_view = "admin.ingresar_admin"
 
 from .decorators import admin_required
-
 from . import admin_bp
 
 
@@ -48,22 +47,16 @@ def ingresar_admin():
                  flash('La contraseña no es la indicada ',"alert alert-danger")
                  return redirect(url_for("admin.ingresar_admin"))
         else:
-            
             userio=form.email.data
-            
-            
             flash( f'El usuario {userio} no esta registrado, como admin. Comuniquese con sistema para solucionar este problema',"alert alert-danger")
             return redirect(url_for("admin.ingresar_admin"))
             
     return render_template('admin/admin_ingreso.html', form=form)
 
-
 @admin_bp.route("/admin_index", methods=["GET", "POST"])
 @admin_required
 def index_admin():
     return render_template("admin/admin_index.html")
-
-
 
 @admin_bp.route("/registrar_admin", methods=["GET", "POST"])
 def registrar_admin():
@@ -91,10 +84,62 @@ def registrar_admin():
 @admin_required
 def eliminar_usuario():
     lista=Useradmin.get_all()
-    
-    return render_template("admin/eliminar_usuario.html",users=lista)
+    form=EliminacionForm()
+    if form.validate_on_submit():
+        user = Useradmin.get_by_id(form.id_usuario.data)
+        
+        if user:
+            
+            user.delete()
+            flash(f'El usuario con el id {form.id_usuario.data} fue eliminado',"alert alert-danger")
+            lista=Useradmin.get_all()
+            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+        else:
+            flash(f'El usuario con el id {form.id_usuario.data} no existe',"alert alert-danger")
+            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+    return render_template("admin/eliminar_usuario.html",users=lista,form=form)
 
 
+
+@admin_bp.route("/hacer_especialista", methods=["GET", "POST"])
+@admin_required
+def hacer_especialista():
+    lista=Useradmin.get_all()
+    form=HacerEspecialistaForm()
+    if form.validate_on_submit():
+        user = Useradmin.get_by_id(form.id_usuario.data)
+        
+        if user:
+            print (form.id_usuario.data)
+            user.actualizar(form.id_usuario.data)
+            flash(f'El usuario con el id {form.id_usuario.data} fue eliminado',"alert alert-danger")
+            lista=Useradmin.get_all()
+            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+        else:
+            flash(f'El usuario con el id {form.id_usuario.data} no existe',"alert alert-danger")
+            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+    return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+
+@admin_bp.route("/hacer_admin",methods=["GET", "POST"])
+@admin_required
+def hacer_admin():
+     form = SignupForm()
+     if form.validate_on_submit():
+        
+        email = form.correo.data
+        password = form.contraseña.data
+        user = AdminUser.get_by_email(email)
+        if user is not None:
+            flash(f'El email {email} ya está siendo utilizado',"alert alert-danger")
+            
+        else:
+            
+            user = AdminUser(correo=email,is_admin=True)
+            user.set_password(password)
+            user.save()
+            flash(f'el usuario {email} fue creado exitosamente',"alert alert-success")
+            return render_template("admin/hacer_admin.html", form=form)
+     return render_template("admin/hacer_admin.html", form=form)
 
 @admin_bp.route('/logout_admin')
 def logout():

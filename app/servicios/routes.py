@@ -4,14 +4,14 @@ from werkzeug.urls import url_parse
 import os
 from app import login_manager
 from . import servicios_bp
-from .forms import ImgForm,PacienteForm,Informacion
+from .forms import ImgForm,PacienteForm
 from .models import Imagenes,Diagnostico,Paciente,Fisico
 from datetime import date
 from .funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 from werkzeug.utils import secure_filename
 import datetime
-
-
+login_manager.login_view = "user.login"
+login_manager.login_message = "Por favor, debes ingresar antes de usar el servicio."
 
 @servicios_bp.route('/servicios_oculares', methods=['GET', 'POST'])
 @login_required

@@ -38,6 +38,19 @@ class Useradmin(db.Model, UserMixin):
     def get_all():
         return Useradmin.query.all()
     
+    
+    def delete(self):
+        db.session.delete(self)
+        db.session.commit()
+    
+    def actualizar(self,id_usuario):
+        user = Useradmin.get_by_id(id_usuario)
+
+        user.usuario_profesion = 'Especialista'
+        db.session.commit()
+
+       
+    
   
     
 
