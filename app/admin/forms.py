@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField,BooleanField,IntegerField
+from wtforms import StringField, SubmitField, PasswordField,BooleanField,IntegerField,SelectField
 from wtforms.validators import DataRequired, Email
 class LoginForm(FlaskForm):
     correo = StringField('Email    ', validators=[DataRequired(message="el campo es obligatorio")])
@@ -21,3 +21,12 @@ class EliminacionForm(FlaskForm):
 class HacerEspecialistaForm(FlaskForm):
     id_usuario= IntegerField('ID de usuario hacer especialista', validators=[DataRequired(message="el campo es obligarorio")])
     submit = SubmitField('Hacer')  
+
+    usuario_profesion=SelectField('Profesión de usuario',choices=[('medico','medico'),("enfermero","enfermero")])
+
+
+
+class EliminarEspecialistaForm(FlaskForm):
+    id_usuario= IntegerField('ID de usuario sacar de especialista', validators=[DataRequired(message="el campo es obligarorio")])
+    submit = SubmitField('Eliminar especialista') 
+    usuario_profesion=SelectField('Profesión de usuario',choices=[('medico','medico'),("enfermero","enfermero")])

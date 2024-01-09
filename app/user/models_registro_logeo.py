@@ -43,14 +43,20 @@ class Useradmin(db.Model, UserMixin):
         db.session.delete(self)
         db.session.commit()
     
-    def actualizar(self,id_usuario):
+    def actualizar(self,id_usuario,profesion):
         user = Useradmin.get_by_id(id_usuario)
 
-        user.usuario_profesion = 'Especialista'
+        user.usuario_profesion = profesion
         db.session.commit()
 
+    @staticmethod
+    def get_by_algo(valor="Especialista"):
+        return Useradmin.query.filter(Useradmin.usuario_profesion!=valor).all()
+
        
-    
+    @staticmethod
+    def get_by_especialista(valor="Especialista"):
+        return Useradmin.query.filter(Useradmin.usuario_profesion==valor).all()
   
     
 

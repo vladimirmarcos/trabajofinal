@@ -6,7 +6,7 @@ from werkzeug.urls import url_parse
 
 from app import login_manager
 from . import admin_bp
-from .forms import  LoginForm,SignupForm,EliminacionForm,HacerEspecialistaForm
+from .forms import  LoginForm,SignupForm,EliminacionForm,HacerEspecialistaForm,EliminarEspecialistaForm
 from .models import AdminUser
 from app.user.models_registro_logeo import Useradmin
 login_manager.login_view = "admin.ingresar_admin"
@@ -104,14 +104,17 @@ def eliminar_usuario():
 @admin_bp.route("/hacer_especialista", methods=["GET", "POST"])
 @admin_required
 def hacer_especialista():
-    lista=Useradmin.get_all()
+    
+    lista=Useradmin.get_by_algo()
     form=HacerEspecialistaForm()
-    if form.validate_on_submit():
+    print(form.data)
+    if not(form.validate_on_submit()):
         user = Useradmin.get_by_id(form.id_usuario.data)
         
         if user:
             
-            user.actualizar(form.id_usuario.data)
+            user.actualizar(form.id_usuario.data,"Especialista")
+            
             flash(f'El usuario con el id {form.id_usuario.data} se le asigno el rol de especialista, ahora puede modificar resultados de las T.C.O.',"alert alert-success")
             lista=Useradmin.get_all()
             return render_template("admin/hacer_especialista.html",users=lista,form=form)
@@ -119,6 +122,26 @@ def hacer_especialista():
             flash(f'El usuario con el id {form.id_usuario.data} no existe',"alert alert-danger")
             return render_template("admin/hacer_especialista.html",users=lista,form=form)
     return render_template("admin/hacer_especialista.html",users=lista,form=form)
+
+@admin_bp.route("/eliminar_especialista", methods=["GET", "POST"])
+@admin_required
+def eliminar_especialista():
+    
+    lista=Useradmin.get_by_especialista()
+    form=EliminarEspecialistaForm()
+    if form.validate_on_submit():
+        user = Useradmin.get_by_id(form.id_usuario.data)
+        
+        if user:
+            
+            user.actualizar(form.id_usuario.data,form.usuario_profesion.data)
+            flash(f'El usuario con el id {form.id_usuario.data} se le quito el rol de especialista, ahora no puede modificar resultados de las T.C.O.',"alert alert-success")
+            lista=Useradmin.get_by_especialista()
+            return render_template("admin/eliminar_especialista.html",users=lista,form=form)
+        else:
+            flash(f'El usuario con el id {form.id_usuario.data} no existe',"alert alert-danger")
+            return render_template("admin/eliminar_especialista.html",users=lista,form=form)
+    return render_template("admin/eliminar_especialista.html",users=lista,form=form)
 
 @admin_bp.route("/hacer_admin",methods=["GET", "POST"])
 @admin_required

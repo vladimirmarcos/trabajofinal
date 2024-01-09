@@ -1,0 +1,74 @@
+{%from "macros.html" import get_menssages%}
+{% extends 'base_admin.html' %}
+
+{% block content %}
+<h2>Lista de usuarios que no son especialistas.</h2>
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+      <table class="table">
+      
+     
+<thead>
+        
+     
+<tr>
+          
+                  <th scope="col">id</th>    
+                 <th scope="col">usuario</th>   
+</tr>
+      </thead>
+      <tbody>
+        {%for user in users%}
+        <tr>
+          
+            
+              <th scope="row" >{{user.id}}</th>
+           
+           
+              <td scope="row">{{user.name}}</td>
+           
+          
+          
+        
+   {%endfor%}
+      </tbody>
+      </table>
+      </div>
+    </div>
+    <form action=""  method="post">
+      {{ form.hidden_tag() }}
+      <div class="row">
+      <div class="col md-4">
+        <div class="text-start">{{ form.id_usuario.label(class_="form-label")}}</div>
+      {{ form.id_usuario (class_="form-control",placeholder='id usuario') }}
+      {% for error in form.id_usuario.errors %}
+      <span style="color: red;">{{ error }}</span>
+      {% endfor %}
+      </div>
+      <div class="col md-4">
+        <div class="text-start">{{ form.usuario_profesion.label(class_="form-label")}}</div>
+        {{ form.usuario_profesion(class_="form-control") }}
+    </div>
+      <div class="col md-4"> <div class="text-start">{{ form.usuario_profesion.label(class_="form-label invisible")}}</div> <div class="d-grid">
+        {{ form.submit(class_="btn btn-primary") }}
+
+    </div></div>
+    </div>
+      
+      <div class="row">
+      <div class="col md-4"></div>
+      <div class="col md-4">
+
+       
+      </div>
+      <div class="col md-4"></div>
+    </div>
+      
+      
+   </form>
+
+
+
+   
+  </div>
+  {% endblock %}

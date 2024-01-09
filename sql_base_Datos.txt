@@ -37,7 +37,15 @@ CREATE TABLE "usuario" (
 	"name"	TEXT NOT NULL,
 	"email"	TEXT NOT NULL UNIQUE,
 	"password"	TEXT NOT NULL,
-	"is_admin"	BOOLEAN,
 	"usuario_profesion"	TEXT NOT NULL,
+	PRIMARY KEY("id")
+);
+
+
+CREATE TABLE "admin" (
+	"id"	INTEGER NOT NULL,
+	"correo"	TEXT NOT NULL,
+	"contraseña"	TEXT NOT NULL,
+	"is_admin"	INTEGER NOT NULL,
 	PRIMARY KEY("id")
 );

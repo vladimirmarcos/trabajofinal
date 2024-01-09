@@ -2,6 +2,20 @@
 {% extends 'base_admin.html' %}
 
 {% block content %}
-<h1>adsasd</h1>
+<h1>Sistema de Admin del servidor horus </h1>
+
+<p class="mt-4">En esta parte del sistema usted podra:</p>
+<ul class="mt-3">
+    
+   
+<li><a class="nav-link active" aria-current="page" href="{{ url_for('admin.hacer_admin') }}">Crear nuevos usuarios de tipo admin.</a></li>
+    
+    
+<li><a class="nav-link" href="{{ url_for('admin.eliminar_usuario') }}">Eliminar Usuario</a></li>
+<li><a class="nav-link" href="{{ url_for('admin.hacer_especialista') }}">Darles el rol de Médico especialista.</a></li>
+<li><a class="nav-link"  href="{{ url_for('admin.eliminar_especialista') }}">Quitarles el rol de Médico especialista.</a></li>
+</ul>
 
 {% endblock %}
+
+

@@ -36,4 +36,6 @@ class AdminUser(db.Model, UserMixin):
     def get_all():
         return AdminUser.query.all()
     
+    
+    
 
