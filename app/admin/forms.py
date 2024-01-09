@@ -17,6 +17,7 @@ class EliminacionForm(FlaskForm):
     id_usuario= IntegerField('ID de usuario a eliminar', validators=[DataRequired(message="el campo es obligarorio")])
     submit = SubmitField('Eliminar')  
 
+
 class HacerEspecialistaForm(FlaskForm):
-    id_usuario= IntegerField('ID de usuario a eliminar', validators=[DataRequired(message="el campo es obligarorio")])
+    id_usuario= IntegerField('ID de usuario hacer especialista', validators=[DataRequired(message="el campo es obligarorio")])
     submit = SubmitField('Hacer')  

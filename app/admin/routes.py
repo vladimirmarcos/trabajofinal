@@ -110,15 +110,15 @@ def hacer_especialista():
         user = Useradmin.get_by_id(form.id_usuario.data)
         
         if user:
-            print (form.id_usuario.data)
+            
             user.actualizar(form.id_usuario.data)
-            flash(f'El usuario con el id {form.id_usuario.data} fue eliminado',"alert alert-danger")
+            flash(f'El usuario con el id {form.id_usuario.data} se le asigno el rol de especialista, ahora puede modificar resultados de las T.C.O.',"alert alert-success")
             lista=Useradmin.get_all()
-            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+            return render_template("admin/hacer_especialista.html",users=lista,form=form)
         else:
             flash(f'El usuario con el id {form.id_usuario.data} no existe',"alert alert-danger")
-            return render_template("admin/eliminar_usuario.html",users=lista,form=form)
-    return render_template("admin/eliminar_usuario.html",users=lista,form=form)
+            return render_template("admin/hacer_especialista.html",users=lista,form=form)
+    return render_template("admin/hacer_especialista.html",users=lista,form=form)
 
 @admin_bp.route("/hacer_admin",methods=["GET", "POST"])
 @admin_required
