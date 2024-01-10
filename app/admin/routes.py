@@ -107,7 +107,7 @@ def hacer_especialista():
     
     lista=Useradmin.get_by_algo()
     form=HacerEspecialistaForm()
-    print(form.data)
+    
     if not(form.validate_on_submit()):
         user = Useradmin.get_by_id(form.id_usuario.data)
         

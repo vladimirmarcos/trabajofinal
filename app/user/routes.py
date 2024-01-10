@@ -5,7 +5,7 @@ from app import login_manager
 from . import user_bp
 from .forms import SignupForm, LoginForm
 from .models_registro_logeo import Useradmin
-login_manager.login_view = "user.login"
+
 
 @user_bp.route('/ingresar', methods=['GET', 'POST'])
 def login():
@@ -36,14 +36,14 @@ def login():
             else:
                  current_app.logger.info('La contraseña no es la indicada')
                  flash('La contraseña no es la indicada ',"alert alert-danger")
-                 return redirect(url_for("user.ingresar"))
+                 return redirect(url_for("user.login"))
         else:
             
             userio=form.email.data
             #error =
             current_app.logger.info('el usuario no esta registrado')
             flash( f'El usuario {userio} no esta registrado',"alert alert-danger")
-            return redirect(url_for("user.ingresar"))
+            return redirect(url_for("user.login"))
             
     return render_template('user/ingresar.html', form=form)
 
