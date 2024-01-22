@@ -25,7 +25,7 @@ from funciones_varias import allowed_file,ALLOWED_EXTENSIONS,red
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    return redirect(url_for('login'))
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -33,23 +33,35 @@ def load_user(user_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    error=None
+    user=None
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('servicios_oculares'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get_by_email(form.email.data)
-        if user is not None and user.check_password(form.password.data):
-            login_user(user, remember=form.remember_me.data)
-            next_page = request.args.get('next')
-            if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
-            return redirect(next_page)
-    return render_template('login_form.html', form=form)
+        if user is not None:
+            clave=user.check_password(form.password.data)
+            if clave:
+                login_user(user, remember=form.remember_me.data)
+                next_page = request.args.get('next')
+                if not next_page or url_parse(next_page).netloc != '':
+                    next_page = url_for('servicios_oculares')
+                return redirect(next_page)
+            else:
+                 error = f'La contraseña no es la indicada D: '
+                 return render_template('login_form.html', form=form,error=error,user=user)
+        else:
+            #print (user.check_passaword(form.password.data)) 
+            userio=form.email.data
+            error = f'El usuario {userio} no esta registrado'
+            return render_template('login_form.html', form=form,error=error,user=user)
+    return render_template('login_form.html', form=form,error=error,user=user)
 
 @app.route("/signup/", methods=["GET", "POST"])
 def show_signup_form():
     if current_user.is_authenticated:
-        return redirect(url_for('index'))
+        return redirect(url_for('servicios_oculares'))
     form = SignupForm()
     error = None
     if form.validate_on_submit():
@@ -68,8 +80,9 @@ def show_signup_form():
             user.save()
             login_user(user, remember=True)
             next_page = request.args.get('next', None)
+            
             if not next_page or url_parse(next_page).netloc != '':
-                next_page = url_for('index')
+                next_page = url_for('login')
             return redirect(next_page)
     return render_template("signup_form.html", form=form, error=error)
 
@@ -77,10 +90,10 @@ def show_signup_form():
 def servicios_oculares():
     flag=1
     mensaje1="" 
+    error=None
     if current_user.is_authenticated:
         flag=0
-        form=ImgForm(request.form)
-        error=None
+        form=ImgForm(request.form)  
         if form.validate_on_submit():
             file=request.files["image"]
             filename= secure_filename(file.filename)
@@ -103,7 +116,9 @@ def servicios_oculares():
                 caso.save()
                 imagen=Imagenes(direccion=filename,id_paciente=id_paciente,imagenes_fecha_tomada=date.today())
                 imagen.save()
-                return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr)
+               
+                return render_template ('servicios_oculares.html',flag=0,form=form,mensaje1=s,mensaje2=dr,mensaje3=scr,name="static/"+filename)
+                
             else: 
                 error = f'El paciente con {dni} no esta registrado'
                 return render_template("servicios_oculares.html",flag=0,form=form,mensaje1="",mensaje2="",mensaje3="",error=error)
@@ -152,6 +167,8 @@ def servicios_paciente():
 def servicios_paciente_historia():
     error=None
     dni=None
+    lista=[]
+    auxiliar=[]
     form=Informacion(request.form)
     fisico=None
     if current_user.is_authenticated :
@@ -161,7 +178,7 @@ def servicios_paciente_historia():
             dni=form.dni.data
             pas =  Paciente.get_by_dni(dni)
             if pas is None:
-                error = f'El paciente con {dni} no esta registrado'
+                error = f'El paciente con el D.N.I. número {dni} no esta registrado'
                 
             else:
             # Creamos el usuario y lo guardamos
@@ -170,8 +187,21 @@ def servicios_paciente_historia():
                 fisico=Fisico.get_by_id_paciente(id_paciente)
                 diagnosticos=Diagnostico.get_by_ide(id_paciente)
                 imagenes=Imagenes.get_by_ide(id_paciente)
-                name=imagenes[0].direccion
-                return render_template ('paciente_historia.html',form=form,error=error,dni=dni,fisico=fisico,diagnosticos=diagnosticos,imagenes=imagenes,name=name)
+                for diagnostico in diagnosticos:
+                   ojo_sano=diagnostico.ojo_sano
+                   dr=diagnostico.dr
+                   crs=diagnostico.crs
+                   auxiliar=[ojo_sano,dr,crs]
+                   lista.append(auxiliar)
+                i=0
+                for imagen in imagenes:
+                    
+                    direccion=imagen.direccion
+                    direccion="static/"+direccion
+                    lista[i].append(direccion)
+                    i=i+1
+                
+                return render_template ('paciente_historia.html',form=form,error=error,dni=dni,fisico=fisico,lista=lista)
             
          
     return render_template("paciente_historia.html",form=form,error=error,dni=dni,fisico=fisico)
@@ -185,6 +215,8 @@ def logout():
 if __name__=="__main__":
     
     app.run(debug=True)
+
+
 
 
  

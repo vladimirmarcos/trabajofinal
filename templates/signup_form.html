@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 
 
 
@@ -7,54 +7,67 @@
 {% block content %}
 <div class="registro">
     {% if error %}
-        <p style="color: red;"><strong>Error:</strong> {{ error }}
+    <div class="container-fluid">
+        <div class="alert alert-danger alert-dismissible">
+            <button class="btn-close" data-bs-dismiss="alert"></button>
+            {{ error }}
+     <a class="alert-link" href="{{ url_for('login') }}"">Presione aquí para ingresar</a>
+    
+    </div>
+    </div>
     {% endif %}
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
-        <div class="form-group">
-          <div class="container d-flex justify-content-center align-item-center"> 
+        <div class="row mb-1">
+                <div class="col-5"></div>
+                <div class="col-3 align-self-center align-items-center">
             {{ form.name(class_="form-control",placeholder='Nombre') }}<br>
             {% for error in form.name.errors %}
             <span style="color: red;">{{ error }}</span>
             {% endfor %}
+                </div>
         </div>
-        </div>
-        <div class="form-group">
-          <div class="container d-flex justify-content-center align-item-center"> 
-            {{ form.email(class_="form-control",placeholder='Correo') }}<br>
-            {% for error in form.email.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div> 
-        </div>
-        <div class="form-group">
-        <div class="container d-flex justify-content-center align-item-center">
-            {{ form.password(class_="form-control",placeholder='Contraseña') }}<br>
-            {% for error in form.password.errors %}
-            <span style="color: red;">{{ error }}</span>
-            {% endfor %}
-        </div>
-        </div>
-        <div class="form-group">
-            <div class="container d-flex justify-content-center align-item-center">
-                <div class="row">
-                <div class="col-12">
-            {{ form.usuario_profesion.label }} 
-        </div>
-            
-            {{ form.usuario_profesion(class_="form-control") }}<br>
-        </div>
-        </div>
-            <div class="container d-flex justify-content-center align-item-center">
-               
-               <br> {{ form.submit() }}
+
+        <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{ form.email(class_="form-control",placeholder='Correo') }}<br>
+                {% for error in form.name.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
             </div>
-            
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{ form.password(class_="form-control",placeholder='Contraseña') }}<br>
+                {% for error in form.name.errors %}
+                    <span style="color: red;">{{ error }}</span>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{ form.usuario_profesion(class_="form-control") }}<br>
+                
+            </div>
         </div>
 
 
+        <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{ form.submit(class_="btn btn-primary btn-lg") }}
+            </div>
+        </div>
+            
+        
+   </form>
 
         
-    </form>
+    
 </div>
 {% endblock %}

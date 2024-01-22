@@ -1,24 +1,46 @@
-{% extends "base.html" %}
+{% extends "base_2.html" %}
 
 {% block content %}
 <div class="servicios-oculares">
   
-{% if flag==1 %}
-   <h1>Debes logearte para ingresar al servicio</h1>
-{%else%} 
+        {% if flag==1 %}
+                <h1>Debes logearte para ingresar al servicio</h1>
+        {%else%} 
 
-{% if error %}
-<p style="color: red;"><strong>Error:</strong> {{ error }}
-{% endif %}
+        {% if error %}
+        <div class="container-fluid">
+                <div class="alert alert-danger alert-dismissible">
+                <button class="btn-close" data-bs-dismiss="alert"></button>
+                    {{ error }}
+                <a class="alert-link" href="{{ url_for('servicios_paciente') }}"">Presione aquí para registrarlo</a>
+        </div>
+</div>
+        {% endif %}
+        <div class="container-fluid">
+            <h1 class="text-center">
+                T.C.O.(Tomografía de coherencia óptica)
+            </h1>
+         <h3 class="text-left text-justify">   La T.C.O. utiliza la luz para capturar secciones transversales ópticas de alta resolución en vivo de la retina que pueden ensamblarse en imágenes de volumen tridimensional del tejido retiniano vivo.</h3>
+
+         <h3 class="text-left text-justify"> Las características que deben tener las imágnes son: </h3>
+        </div>
 <form  class='row' method='POST' enctype="multipart/form-data">
    
     {{form.csrf_token}}
-    <div class="container d-flex justify-content-center align-item-center">
-    {{form.image (class_="form-control-md")}}
+   
+     <div class="row mb-1">
+        <div class="col-5"></div>
+        <div class="col-3 align-self-center align-items-center">
+            {{ form.image(class_="form-control") }}
+         </div>
      </div>
-     <div class="container d-flex justify-content-center align-item-center">
-      {{form.dni(class_="form-control-md",placeholder='dni')}}
-       </div>
+         <div class="row mb-1">
+            <div class="col-5"></div>
+            <div class="col-3 align-self-center align-items-center">
+                {{form.dni(class_="form-control-md",placeholder='dni del paciente de TCO')}}
+         </div>
+        </div>
+     
     
     <div class="container d-flex justify-content-center align-item-center">
     <button type="submit" class="btn btn-primary">Enviar</button>
@@ -27,15 +49,40 @@
 
 
   {% if mensaje1 != ''%}
-  <h1>el paciente tiene: </h1> <br>
-  <h2>ojo sano: </h2>
-  <h2>{{mensaje1}}</h2>
-  <h2>DR: </h2>
-  <h2>{{mensaje2}}</h2>
-  <h2>CSR: </h2>
-  <h2>{{mensaje3}}</h2>
-  <img src="{{ url_for('static', filename='name') }}" >
-  {%else%} 
+
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Ojo Sano</th>
+                        <th> DR</th>
+                        <th>CSR</th>
+            
+                    </tr>
+                <tbody>
+                    <tr>
+                        <td>{{mensaje1}}</td>
+                        <td>{{mensaje2}}</td>
+                        <td>{{mensaje3}}</td>
+                    </tr>
+                </tbody>
+            
+              
+            
+            </thead>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+  <div class="container py-4">
+  <img src="{{name}}" class="img-fluid rounded">
+</div>
+  
   {% endif %} 
 {% endif %}
 

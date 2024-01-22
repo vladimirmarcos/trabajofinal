@@ -12,7 +12,7 @@ from keras.models import Model
 app.config["MODEL_FOLDER"]="static/models"
 app.config["WEIGHT_FOLDER"]="static/weight"
 model="Est_Franco_modif_30_ep_IMGS_NEGAT.json"
-weight="Est_Franco_modif_30_ep_IMGS_NEGAT.h5"
+weight="pesos.h5"
 ALLOWED_EXTENSIONS=set(['png',"jpg","jpeg"])
 
 #-----------------------------------------------------------------------------------------------------
@@ -71,6 +71,8 @@ def red(nombre_archivo):
             json_file.close()
             cnn = model_from_json(loaded_model_json)
             weights_path=os.path.join(app.config["WEIGHT_FOLDER"],weight)
+            #weights_path=app.config["WEIGHT_FOLDER"]+"/"+weight
+            
             cnn.load_weights(weights_path)
             cnn.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['accuracy'])
             i=random.randint(0, (len(X_extrap)-1))

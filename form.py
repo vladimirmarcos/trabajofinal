@@ -15,6 +15,7 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired("el campo es obligatorio")])
     remember_me = BooleanField('Recuérdame')
     submit = SubmitField('Ingresar')
+    registrar = SubmitField('Registrar')
 
 
 class ImgForm (FlaskForm):

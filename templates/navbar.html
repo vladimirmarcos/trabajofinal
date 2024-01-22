@@ -33,9 +33,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{{ url_for('servicios_oculares') }}">Servicios oculares</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+           
           </ul>
         </li>
         
@@ -44,14 +42,16 @@
           <a class="nav-link" href="#flush-headingOne">Preguntas Frecuentes</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="#contacto">Contacto</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link" href="{{ url_for('login') }}">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link"  href="{{ url_for('show_signup_form') }}"">Registrar</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#contacto">Contacto</a>
-        </li>
+        
       </ul>
 
 
@@ -90,8 +90,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href="{{ url_for('servicios_oculares') }}">Servicios Oculares</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider"></li>
+              
              
             </ul>
           </li>
@@ -110,7 +109,9 @@
             <a class="nav-link href="#flush-headingOne">Preguntas Frecuentes</a>
            
           </li>
-
+          <li class="nav-item">
+            <a class="nav-link" href="#contacto">Contacto</a>
+          </li>
 
           <li class="nav-item" >{{ current_user.name }} </li>
 
@@ -118,9 +119,7 @@
             <a class="nav-link" href="{{ url_for('logout') }}"">Salir</a>
           </li>
 
-          <li class="nav-item">
-            <a class="nav-link" href="#contacto">Contacto</a>
-          </li>
+         
         </ul>
         
       </div>

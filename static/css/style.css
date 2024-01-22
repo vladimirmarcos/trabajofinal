@@ -161,7 +161,14 @@ h1 {
     min-height: 100vh;
     min-width: 100vh;
 }
-
+.historial{
+    min-height: 100vh;
+    min-width: 100vh;
+}
+.historial-dni{
+    min-height: 30vh;
+    min-width: 100vh;
+}
 .registro{
     min-height: 100vh;
 }
