@@ -1,7 +1,7 @@
 from flask import Flask,render_template
 from flask_login import LoginManager
 from flask_sqlalchemy import SQLAlchemy
-
+import os
 import logging
 from logging.handlers import SMTPHandler
 login_manager = LoginManager()
@@ -34,6 +34,9 @@ def create_app(settings_module):
     
 
     db.init_app(app)
+    
+    print(os.getenv('APP_SETTINGS_MODULE'))
+    print (f"el seting es {settings_module}")
 
     # Registro de los Blueprints
     from .public import public_bp
