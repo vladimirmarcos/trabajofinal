@@ -35,14 +35,15 @@ def login():
                 return redirect(next_page)
             else:
                  current_app.logger.info('La contraseña no es la indicada')
-                 flash('La contraseña no es la indicada ',"alert alert-danger")
+                 flash('La contraseña o el usuario son incorrectos',"alert alert-danger")
                  return redirect(url_for("user.login"))
         else:
             
             userio=form.email.data
             #error =
             current_app.logger.info('el usuario no esta registrado')
-            flash( f'El usuario {userio} no esta registrado',"alert alert-danger")
+            #flash( f'El usuario {userio} no esta registrado',"alert alert-danger")
+            flash('La contraseña o el usuario son incorrectos',"alert alert-danger")
             return redirect(url_for("user.login"))
             
     return render_template('user/ingresar.html', form=form)

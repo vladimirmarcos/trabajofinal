@@ -34,9 +34,6 @@ def create_app(settings_module):
     
 
     db.init_app(app)
-    
-    print(os.getenv('APP_SETTINGS_MODULE'))
-    print (f"el seting es {settings_module}")
 
     # Registro de los Blueprints
     from .public import public_bp

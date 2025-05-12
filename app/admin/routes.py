@@ -47,7 +47,7 @@ def ingresar_admin():
                  flash('La contraseña no es la indicada ',"alert alert-danger")
                  return redirect(url_for("admin.ingresar_admin"))
         else:
-            userio=form.email.data
+            userio=form.correo.data
             flash( f'El usuario {userio} no esta registrado, como admin. Comuniquese con sistema para solucionar este problema',"alert alert-danger")
             return redirect(url_for("admin.ingresar_admin"))
             

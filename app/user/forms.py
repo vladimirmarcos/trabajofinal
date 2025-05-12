@@ -11,7 +11,7 @@ class SignupForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email    ', validators=[DataRequired(message="el campo es obligatorio")])
+    email = StringField('Email', validators=[DataRequired(message="El campo es obligatorio"), Email()])
     password = PasswordField('Password', validators=[DataRequired("el campo es obligatorio")])
     remember_me = BooleanField('Recuérdame')
     submit = SubmitField('Ingresar')
